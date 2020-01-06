@@ -1,0 +1,106 @@
+﻿@model AwesomeDesk.Models.CustomerAddResponseViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+
+<h2>[@ViewBag.Id] @ViewBag.Subject </h2>
+
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th width="30%"></th>
+            <th width="30%"></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model.CustomerDetailsTickets)
+    {
+        if (item.AssOrCus == 2)
+        {
+            <tr>
+                <td></td>
+                <td>
+                    @{
+                        var param = "showhide('row_" + @Html.DisplayFor(modelItem => item.TiP_LP) + "')";
+
+                    }
+                    <button class="btn btn-light" onclick="@param; return false;"><b>@Html.DisplayFor(modelItem => item.OperatorName)</b> (@Html.DisplayFor(modelItem => item.TiP_Date)) </button>
+                    <div class="ticketContent" id="row_@Html.DisplayFor(modelItem => item.TiP_LP)">
+                        <p>    @Html.DisplayFor(modelItem => item.TiP_Content)</p>
+                    </div>
+                </td>
+
+            </tr>
+        }
+        if (item.AssOrCus == 1)
+        {
+            <tr>
+                <td>
+                    @{
+                        var param = "showhide('row_" + @Html.DisplayFor(modelItem => item.TiP_LP) + "')";
+
+                    }
+                    <button class="btn btn-light" onclick="@param; return false;"><b>@Html.DisplayFor(modelItem => item.OperatorName)</b> (@Html.DisplayFor(modelItem => item.TiP_Date)) </button>
+                    <div class="ticketContent" id="row_@Html.DisplayFor(modelItem => item.TiP_LP)">
+                        <p>    @Html.DisplayFor(modelItem => item.TiP_Content)</p>
+                    </div>
+                </td>
+                <td></td>
+            </tr>
+        }
+
+    }
+
+</table>
+@*@foreach (var item in Model.CustomerDetailsTickets)
+    {
+
+        @Html.HiddenFor(model => item.TiH_ID)
+
+    }*@
+
+
+
+@using (Html.BeginForm("DetailsCustomer","Tickets"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NewPositionContent, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NewPositionContent, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NewPositionContent, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @for (var i = 0; i < Model.CustomerDetailsTickets.Count(); i++)
+            {
+
+                @Html.HiddenFor(model => Model.CustomerDetailsTickets[i].TiH_ID)
+                @Html.HiddenFor(model => Model.CustomerDetailsTickets[i].OperatorName)
+                @Html.HiddenFor(model => Model.CustomerDetailsTickets[i].TiP_Content)
+                @Html.HiddenFor(model => Model.CustomerDetailsTickets[i].TiP_Date)
+                @Html.HiddenFor(model => Model.CustomerDetailsTickets[i].TiP_LP)
+                @Html.HiddenFor(model => Model.CustomerDetailsTickets[i].AssOrCus)
+            }
+
+
+
+
+        </div>
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Wyślij" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+
+'

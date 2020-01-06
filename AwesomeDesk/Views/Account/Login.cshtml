@@ -1,0 +1,68 @@
+﻿@using AwesomeDesk.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Zaloguj";
+}
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+
+
+<h2>@ViewBag.Title.</h2>
+
+<section id="loginForm" >
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group row  ">
+            @Html.LabelFor(m => m.Email, new { @class = "col-sm-2 col-form-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            </div>
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group row">
+            @Html.LabelFor(m => m.Password, new { @class = "col-sm-2 col-form-label " })
+            <div class="col-sm-10">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control " })
+            </div>
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-row">
+            <input type="submit" value="Zaloguj się" class="btn btn-dark btn-lg  mx-auto d-block" />
+        </div>
+        <div class="form-group row">
+            <div class="custom-control custom-checkbox  mx-auto d-block">
+                @Html.CheckBoxFor(m => m.RememberMe, new { @class = "custom-control-input" })
+                @Html.LabelFor(m => m.RememberMe, new { @class = "custom-control-label" })
+            </div>        
+        </div>
+        <div class="form-group row">
+            @Html.ActionLink("Nie masz konta?", "Register", "", new { @class = "badge badge-secondary mx-auto d-block" })
+        </div>
+
+            @* Enable this once you have account confirmation enabled for password reset functionality
+                <p>
+                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                </p>*@
+            }
+    </section>
+
+@*<div class="col-md-4">
+        <section id="socialLoginForm">
+            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+        </section>
+    </div>*@
+
+
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

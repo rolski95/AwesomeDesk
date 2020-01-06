@@ -1,0 +1,60 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    width:100%;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+.ro-login1 {
+    border: 6px solid;
+    border-color: wheat;
+    border-radius: 8px 8px;
+    background-color: burlywood;
+    width: 40%;
+}
+
+.ro-login2 {
+    border: 6px solid;
+    border-color: peru;
+    border-radius: 8px 8px;
+    background-color: darkorange;
+    width: 30%;
+}
+
+.ro-navbar {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background-color: darkorange;
+    border-bottom: 6px solid;
+    border-bottom-color: peru;
+}
+
+.ro-navbar-nav {
+    color: black;
+}
+.ro_AssResponse > a{
+   width: 30px;
+   word-break:break-all;
+   display:inline-block;
+   white-space:normal;
+}
+.ro-body {
+    margin-left: 70px;
+    margin-right: 70px;
+}

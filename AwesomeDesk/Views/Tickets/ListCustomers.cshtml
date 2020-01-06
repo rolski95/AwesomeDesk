@@ -1,0 +1,64 @@
+﻿@model IEnumerable<AwesomeDesk.Models.CustomerListTicketViewModel>
+
+@{
+    ViewBag.Title = "AwesomeDesk-Twoje Zgłoszenia";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+
+<h2>Twoje Zgłoszenia</h2>
+
+<p>
+    @Html.ActionLink("Utwórz nowe zgłoszenie", "Create")
+</p>
+
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TiH_ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TiH_Subject)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TiH_Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TiS_Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Assistants)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TiH_ID)
+                    </td>
+                    <td>
+                        @Html.ActionLink(item.TiH_Subject, "Details", "Tickets", new { id = item.TiH_ID }, new { @Class = "action add", @title = item.TiP_Content })
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TiH_Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TiS_Name)
+                    </td>
+                    <td>
+                        @foreach (var ass in item.Assistants)
+                        {
+                            <p> @Html.DisplayFor(modelItem => ass)</p>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

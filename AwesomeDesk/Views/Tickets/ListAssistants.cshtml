@@ -1,0 +1,79 @@
+﻿@model IEnumerable<AwesomeDesk.Models.AssistantListTicketViewModel>
+
+@{
+    ViewBag.Title = "AwesomeDesk-Twoje Zgłoszenia";
+    Layout = "~/Views/Shared/_LayoutAssistant.cshtml";
+}
+
+
+<h2>Wszystkie Zgłoszenia</h2>
+<p>
+    @Html.ActionLink("Utwórz nowe zgłoszenie", "Create")
+</p>
+
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TiH_ID)
+                </th>
+                <th class="w-25">
+                    @Html.DisplayNameFor(model => model.TiH_Subject)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TiH_Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TiS_Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Assistants)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Customers)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CmP_Name)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TiH_ID)
+                    </td>
+                    <td>
+                        @Html.ActionLink(item.TiH_Subject, "Details", "Tickets", new { id = item.TiH_ID }, new { @Class = "action add", @title = item.TiP_Content })
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TiH_Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TiS_Name)
+                    </td>
+                    <td>
+                        @foreach (var ass in item.Assistants)
+                        {
+                            <p> @Html.DisplayFor(modelItem => ass)</p>
+                        }
+                    </td>
+                    <td>
+                        @foreach (var cus in item.Customers)
+                        {
+                            <p> @Html.DisplayFor(modelItem => cus)</p>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CmP_Name)
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
