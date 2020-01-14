@@ -111,7 +111,6 @@ namespace AwesomeDesk.Models
         public string NewPositionContent { get; set; }
 
     }
-
     public class CustomerListViewModel
     { 
         [Display(Name = "Imię klienta")]
@@ -140,17 +139,15 @@ namespace AwesomeDesk.Models
         public string CuS_PhoneNumber { get; set; }
         [Display(Name = "Firma")]
         public int CuS_CMPID { get; set; }
+
+        [DataType(DataType.Password)]
+        public string CuS_Password { get; set; }
         public List<Company> Companies { get; set; }
     }
 
 
 
 
-    public class DesctiptionViewModel
-    {
 
-        public string Version { get; set; }
-        public string Content { get; set; }
-    }
 
 }

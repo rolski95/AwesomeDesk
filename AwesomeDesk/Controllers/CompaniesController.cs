@@ -43,9 +43,7 @@ namespace AwesomeDesk.Controllers
         {
             return View();
         }
-        // POST: Companies/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Assistant")]
@@ -56,7 +54,7 @@ namespace AwesomeDesk.Controllers
             {
                 db.Companies.Add(company);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("List");
             }
 
             return View(company);
@@ -77,12 +75,9 @@ namespace AwesomeDesk.Controllers
             }
             return View(company);
         }
-        // POST: Companies/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [Authorize(Roles = "Administrator,Assistant")]
-
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CmP_ID,CmP_Name,CmP_PhoneNumber,CmP_PageAdress")] Company company)
         {
@@ -90,7 +85,7 @@ namespace AwesomeDesk.Controllers
             {
                 db.Entry(company).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("List");
             }
             return View(company);
         }

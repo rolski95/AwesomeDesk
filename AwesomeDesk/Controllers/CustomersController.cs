@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using AwesomeDesk.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace AwesomeDesk.Controllers
 {
@@ -43,29 +44,49 @@ namespace AwesomeDesk.Controllers
         }
         [HttpPost]
         [Authorize(Roles = "Assistant")]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]  
         public ActionResult Create(CustomerCreateViewModel model)
         {
+            UserManager<Customer> UserManager=new UserManager<Customer>(new UserStore<Customer>(db));
             if (ModelState.IsValid)
             {
-                db.Customers.Add(new Customer
-                {
-                    CuS_Email=model.CuS_Email,
-                    CuS_Login=model.CuS_Email,
-                    CuS_Name=model.CuS_Name,
-                    CuS_Surname=model.CuS_Surname,
-                    CuS_PhoneNumber=model.CuS_PhoneNumber,
-                    CuS_CMPID= model.CuS_CMPID
-                }
 
-                );   
-            
-                db.SaveChanges();
+                var user = new Customer
+                {
+                    CuS_Email = model.CuS_Email,
+                    CuS_Login = model.CuS_Email,
+                    CuS_Name = model.CuS_Name,
+                    CuS_Surname = model.CuS_Surname,
+                    CuS_PhoneNumber = model.CuS_PhoneNumber,
+                    CuS_CMPID = model.CuS_CMPID
+
+                };
+                var chkUser = UserManager.Create(user, model.CuS_Password);
+                if (chkUser.Succeeded)
+                {
+                    var result1 = UserManager.AddToRole(user.Id, "Customer");
+                }
                 return RedirectToAction("List");
             }
             return View();
         }
+        private void AddCustomer(string Email, int CompanyID, UserManager<Operator> UserManager)
+        {
 
-     
+            var user = new Customer
+            {
+                UserName = Email,
+                Email = Email,
+                CuS_CMPID = CompanyID
+
+            };
+            var chkUser = UserManager.Create(user, "Qwerty!12345");
+
+            if (chkUser.Succeeded)
+            {
+                var result1 = UserManager.AddToRole(user.Id, "Customer");
+            }
+        }
+
     }
 }

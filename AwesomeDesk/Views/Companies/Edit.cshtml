@@ -1,19 +1,21 @@
 ﻿@model AwesomeDesk.Models.Company
 
 @{
-    ViewBag.Title = "Dodaj nową firmę";
+    ViewBag.Title = "Edytuj firmę";
     Layout = "~/Views/Shared/_LayoutAssistant.cshtml";
 }
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.CmP_ID)
+
         <div class="form-group">
             @Html.LabelFor(model => model.CmP_Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -40,12 +42,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Utwórz" class="btn btn-default" />
+                <input type="submit" value="Zapisz" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Powrót na listę", "List")
+    @Html.ActionLink("Anuluj", "List")
 </div>

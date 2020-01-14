@@ -13,7 +13,7 @@ namespace AwesomeDesk.Models
     public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext()
-            : base("DefaultConnection")
+            : base("Website")
         {
         }
 

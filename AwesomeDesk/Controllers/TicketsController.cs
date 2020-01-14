@@ -297,6 +297,16 @@ namespace AwesomeDesk.Controllers
             return View("DetailsAssistants");
         }
 
+        public ActionResult Changelog()
+        {
+
+            return View("Changelog");
+        }
+        public ActionResult Functional()
+        {
+
+            return View("Functional");
+        }
         public IQueryable<string> GetAssistantsNames(int _TiH_ID)
         {
 

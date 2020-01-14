@@ -26,8 +26,8 @@ namespace AwesomeDesk
                     context.TicketStates.Add(new TicketState { TiS_Name = "Otwarte", TiS_Description = "Zgłoszenie jest otwarte" });
                     context.TicketTypes.Add(new TicketType { TiT_Name = "Zgłoszenie", TiT_Description = "Standardowe zgłoszenie" });
                 
-                    context.Companies.Add(new Company { CmP_Name = "Company#1" });
-                    context.Companies.Add(new Company { CmP_Name = "Company#2" });
+                    //context.Companies.Add(new Company { CmP_Name = "Company#1" });
+                    //context.Companies.Add(new Company { CmP_Name = "Company#2" });
 
                     context.SaveChanges();
                 }
@@ -67,7 +67,7 @@ namespace AwesomeDesk
                     Email = "admin@o2.pl",
                    
                 };
-                var chkUser = UserManager.Create(user, "Qwerty!12345");
+                var chkUser = UserManager.Create(user, "!@#QWEasd");
                 
                 
                 //Add default User to Role Admin   
@@ -86,10 +86,10 @@ namespace AwesomeDesk
                     Name = "Customer"
                 };
                 roleManager.Create(role);
-                AddCustomer("Com1Cus1@example.com",1, UserManager);
-                AddCustomer("Com1Cus2@example.com", 1, UserManager);
-                AddCustomer("Com2Cus1@example.com", 2, UserManager);
-                AddCustomer("Com2Cus2@example.com", 2,UserManager);
+                //AddCustomer("Com1Cus1@example.com",1, UserManager);
+                //AddCustomer("Com1Cus2@example.com", 1, UserManager);
+                //AddCustomer("Com2Cus1@example.com", 2, UserManager);
+                //AddCustomer("Com2Cus2@example.com", 2,UserManager);
 
 
             }
@@ -101,10 +101,10 @@ namespace AwesomeDesk
                     Name = "Assistant"
                 };
                 roleManager.Create(role);
-                AddAssistant("Ass1@example.com", UserManager);
-                AddAssistant("Ass2@example.com", UserManager);
-                AddAssistant("Ass3@example.com", UserManager);
-                AddAssistant("Ass4@example.com", UserManager);
+                AddAssistant("h.kramer@wp.pl", UserManager);
+                AddAssistant("sermiszcz@wp.pl", UserManager);
+                AddAssistant("mr.shadowdkj@gmail.com", UserManager);
+                AddAssistant("rolski95@o2.pl", UserManager);
 
             }
 
@@ -125,8 +125,6 @@ namespace AwesomeDesk
             {
                 var result1 = UserManager.AddToRole(user.Id, "Customer");
             }
-
-
         }
         private void AddAssistant(string Email, UserManager<Operator> UserManager)
         {

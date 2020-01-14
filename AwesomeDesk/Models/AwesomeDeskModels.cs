@@ -227,6 +227,5 @@ namespace AwesomeDesk.Models
         [ ForeignKey("TicketHeader")]
         public int TiC_TiHID { get; set; }
         public TicketHeader TicketHeader { get; set; }
-
-    }
+    }  
 }
