@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace AwesomeDesk.Models
 {
+  
     public class CustomerListTicketViewModel
     {
         [Display(Name = "ID"), Key]
@@ -88,6 +89,13 @@ namespace AwesomeDesk.Models
         public string TiH_Subject { get; set; }
         [Display(Name = "Treść"), DataType(DataType.MultilineText)]
         public string TiP_Content { get; set; }
+        public List<Assistant> Assistants { get; set; }
+        [Display(Name = "Przypisz asystenta")]
+        public string TiP_ASSID { get; set; }
+
+        public List<Company> Companies { get; set; }
+        [Display(Name = "Przypisz firmę")]
+        public int TiH_CMPID { get; set; }
     }
     public class AssistantDetailsTicketViewModel
     {
@@ -128,21 +136,29 @@ namespace AwesomeDesk.Models
     }
     public class CustomerCreateViewModel
     {
+        [StringLength(100, ErrorMessage = " {0} musi mieć minimum {2} znaków długości", MinimumLength = 2)]
         [Display(Name = "Imię klienta")]
         public string CuS_Name { get; set; }
+
+        [StringLength(100, ErrorMessage = " {0} musi mieć minimum {2} znaków długości", MinimumLength = 2)]
         [Display(Name = "Nazwisko klienta")]
         public string CuS_Surname { get; set; }
+
         [Display(Name = "E-mail klienta"), Key]
+        [Required]
+        [EmailAddress]
         public string CuS_Email { get; set; }
-
-        [Display(Name = "Numer telefonu klienta")]
+        [Display(Name = "Numer telefonu klienta"), RegularExpression("^[0-9]*$", ErrorMessage = "{0} może zawierać tylko liczby")]     
         public string CuS_PhoneNumber { get; set; }
-        [Display(Name = "Firma")]
-        public int CuS_CMPID { get; set; }
-
+        
+        [Required]
+        [Display(Name = "Hasło")]
+        [StringLength(100, ErrorMessage = " {0} musi mieć minimum {2} znaków długości", MinimumLength = 6)]
         [DataType(DataType.Password)]
         public string CuS_Password { get; set; }
         public List<Company> Companies { get; set; }
+        [Display(Name = "Firma")]
+        public int CuS_CMPID { get; set; }
     }
 
 

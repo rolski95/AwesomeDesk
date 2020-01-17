@@ -37,6 +37,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.CmP_Name)
                 </th>
+                <th>Dostępne akcje</th>
             </tr>
         </thead>
         <tbody>
@@ -70,10 +71,23 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.CmP_Name)
-                    </td>
+                  
 
+                    <td class="dropdown">
+
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Opcje
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            @Html.ActionLink("Przypisz zgłoszenie", "AssignToYourself", new { id = item.TiH_ID }, new { @class = "dropdown-item" })
+                            @*<a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>*@
+                        </div>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
+
 </div>

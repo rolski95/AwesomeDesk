@@ -68,7 +68,8 @@ namespace AwesomeDesk.Controllers
                 }
                 return RedirectToAction("List");
             }
-            return View();
+            model.Companies = db.Companies.ToList();
+            return View(model);
         }
         private void AddCustomer(string Email, int CompanyID, UserManager<Operator> UserManager)
         {

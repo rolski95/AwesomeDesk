@@ -96,7 +96,7 @@ namespace AwesomeDesk.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "Błędne dane logowania.");
                     return View(model);
             }
         }

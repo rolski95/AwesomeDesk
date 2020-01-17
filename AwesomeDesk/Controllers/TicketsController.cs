@@ -59,7 +59,9 @@ namespace AwesomeDesk.Controllers
                              join TiP in db.TicketPositions on TiH.TiH_ID equals TiP.TiP_TiHID
 
                              join TiS in db.TicketStates on TiH.TiH_TiSID equals TiS.TiS_ID
+                             join CmP in db.Companies on TiH.TiH_CMPID equals CmP.CmP_ID
                              where TiP.TiP_LP == 1
+                             orderby TiH.TiH_ID descending
                              select new AssistantListTicketViewModel
                              {
                                  TiH_Date = TiP.TiP_Date,
@@ -68,15 +70,16 @@ namespace AwesomeDesk.Controllers
                                  Assistants = (from AsS in db.Assistants
                                                join tia in db.TicketHeaderAssistants on AsS.Id equals tia.TiA_AsSID
                                                where tia.TiA_TiHID == TiH.TiH_ID
-                                               select AsS.UserName
+                                               select AsS.AsS_Name + " " + AsS.AsS_Surname
                                                ).ToList(),
                                  TiH_ID = TiH.TiH_ID,
                                  TiP_Content = TiP.TiP_Content,
-                                 CmP_Name = "",
+                                 CmP_Name = CmP.CmP_Name,
                                  Customers = (from cus in db.Customers
                                               join tic in db.TicketHeaderCustomers on cus.Id equals tic.TiC_CuSID
                                               where tic.TiC_TiHID == TiH.TiH_ID
-                                              select cus.UserName
+                                              select cus.CuS_Name + " " + cus.CuS_Surname
+
                                                ).ToList()
 
                              }).ToList();
@@ -94,7 +97,10 @@ namespace AwesomeDesk.Controllers
             }
             else
             {
-                return View("CreateAssistants");
+                var model = new AssistantCreateTicketViewModel();
+                model.Assistants = db.Assistants.ToList();
+                model.Companies = db.Companies.ToList();
+                return View("CreateAssistants", model);
             }
         }
 
@@ -109,6 +115,7 @@ namespace AwesomeDesk.Controllers
                 TicketHeader tih = db.TicketHeaders.Add(new TicketHeader
                 {
                     TiH_Subject = model.TiH_Subject,
+                    TiH_CMPID=db.Customers.Where(x=>x.Id==User.Identity.GetUserId()).FirstOrDefault().CuS_CMPID,
                     TiH_TiTID = 1,
                     TiH_TiSID = 1
                 });
@@ -143,7 +150,9 @@ namespace AwesomeDesk.Controllers
                 {
                     TiH_Subject = model.TiH_Subject,
                     TiH_TiTID = 1,
-                    TiH_TiSID = 1
+                    TiH_TiSID = 1,
+                    TiH_CMPID=model.TiH_CMPID
+                    
                 });
                 TicketPosition tip = db.TicketPositions.Add(new TicketPosition
                 {
@@ -156,12 +165,15 @@ namespace AwesomeDesk.Controllers
                 db.TicketHeaderAssistants.Add(new TicketHeaderAssistant
                 {
                     TiA_TiHID = tih.TiH_ID,
-                    TiA_AsSID = User.Identity.GetUserId()
+                    TiA_AsSID = model.TiP_ASSID,
                 });
                 db.SaveChanges();
                 return RedirectToAction("List");
             }
-            return View("CreateAssistants");
+            model.Assistants = db.Assistants.ToList();
+            model.Companies = db.Companies.ToList();
+
+            return View("CreateAssistants", model);
         }
 
         [Authorize(Roles = "Customer,Assistant")]
@@ -200,7 +212,7 @@ namespace AwesomeDesk.Controllers
                 {
                     CustomerDetailsTickets = model
                 };
-         
+
 
                 return View("DetailsCustomers", model2);
             }
@@ -229,7 +241,7 @@ namespace AwesomeDesk.Controllers
                 var model2 = new AssistantAddResponseViewModel()
                 {
                     AssistantDetailsTickets = model
-                };                
+                };
                 return View("DetailsAssistants", model2);
             }
         }
@@ -258,7 +270,7 @@ namespace AwesomeDesk.Controllers
                         TiP_Content = tmp.NewPositionContent
                     });
                     db.SaveChanges();
-                    return RedirectToAction("Details",new {id=tmp.CustomerDetailsTickets.FirstOrDefault().TiH_ID });
+                    return RedirectToAction("Details", new { id = tmp.CustomerDetailsTickets.FirstOrDefault().TiH_ID });
 
                     // return RedirectToAction("Details", "Tickets",modelCustomer.CustomerDetailsTickets.FirstOrDefault().TiH_ID.ToString());
                 }
@@ -295,6 +307,37 @@ namespace AwesomeDesk.Controllers
                 return RedirectToAction("Details", new { id = tmp.AssistantDetailsTickets.FirstOrDefault().TiH_ID });
             }
             return View("DetailsAssistants");
+        }
+
+
+        [Authorize(Roles = "Assistant")]
+        public ActionResult AssignToYourself(int? id)
+        {
+            var assID = User.Identity.GetUserId();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (db.TicketHeaderAssistants.Where(x => x.TiA_AsSID == assID && x.TiA_TiHID == (int)id).Count() == 0)
+                {
+                db.TicketHeaderAssistants.Add(new TicketHeaderAssistant
+                {
+                    TiA_TiHID = (int)id,
+                    TiA_AsSID = assID
+
+                }); 
+                db.SaveChanges();
+                TempData["Success"] = "Pomyślnie dodano cię do zgłoszenia";
+                return RedirectToAction("List");
+            }
+            else
+            {
+                TempData["Error"] = "Już jesteś przydzielony do tego zgłoszenia!";
+                return RedirectToAction("List");
+            }
+
+
+
         }
 
         public ActionResult Changelog()

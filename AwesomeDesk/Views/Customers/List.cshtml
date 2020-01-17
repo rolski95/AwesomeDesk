@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_LayoutAssistant.cshtml";
 }
 
-<h2>List</h2>
+<h2>Klienci</h2>
 
 <p>
     @Html.ActionLink("Dodaj nowego", "Create")
@@ -29,8 +29,7 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.CmP_Name)
-                </th>
-                <th></th>
+                </th>              
             </tr>
         </thead>
         <tbody>
@@ -52,11 +51,11 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.CmP_Name)
                     </td>
-                    @*<td>
-                        @html.actionlink("edit", "edit", new { id = item.cus_email }) |
+                    <td>
+                        @*@html.actionlink("edit", "edit", new { id = item. }) |
                         @html.actionlink("details", "details", new { id = item.cus_email }) |
-                        @html.actionlink("delete", "delete", new { id = item.cus_email })
-                    </td>*@
+                        @html.actionlink("delete", "delete", new { id = item.cus_email })*@
+                    </td>
                 </tr>
             }
 

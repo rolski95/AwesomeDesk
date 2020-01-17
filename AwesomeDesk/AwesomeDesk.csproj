@@ -178,6 +178,10 @@
     <Compile Include="Migrations\201912100111333_mig1.Designer.cs">
       <DependentUpon>201912100111333_mig1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001162040242_miggg112.cs" />
+    <Compile Include="Migrations\202001162040242_miggg112.Designer.cs">
+      <DependentUpon>202001162040242_miggg112.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AwesomeDeskModels.cs" />
@@ -198,6 +202,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\logo_awesomeDesk.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -315,6 +320,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201912100111333_mig1.resx">
       <DependentUpon>201912100111333_mig1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001162040242_miggg112.resx">
+      <DependentUpon>202001162040242_miggg112.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

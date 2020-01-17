@@ -30,8 +30,8 @@
                         @Html.ActionLink("Klienci", "List", "Customers", null, new { @class = "dropdown-item" })
 
                         @*<a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>*@
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>*@
                     </div>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -40,7 +40,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         @Html.ActionLink("Dziennik zmian", "Changelog", "Tickets", null, new { @class = "dropdown-item" })
                         @Html.ActionLink("Opis funkcjonalności", "Functional", "Tickets", null, new { @class = "dropdown-item" })
-                    </div>  
+                    </div>
                 </li>
             </ul>
             @Html.Partial("_LoginPartial")
@@ -79,9 +79,34 @@
         </div>*@
 
 
-    <div class="ro-body">
-        @RenderBody()
-    </div>
+
+
+<div class="ro-body">
+
+    @if (TempData["Error"] != null)
+    {
+     
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Błąd!</strong>  @TempData["Error"].ToString()
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+
+    }
+    @if (TempData["Success"] != null)
+    {
+
+        <div class="alert alert-success" role="alert">
+            <p><strong>Sukces:</strong> @TempData["Success"].ToString()</p>
+        </div>
+    }
+
+
+
+    @RenderBody()
+</div>
 
     <hr />
     <footer>

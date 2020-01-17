@@ -18,11 +18,11 @@ namespace AwesomeDesk.Models
         public virtual ICollection<Customer> Customers { get; set; }
         [Key]
         public int CmP_ID { get; set; }
-        [Display(Name = "Firma"),StringLength(60, MinimumLength = 3)]
+        [Display(Name = "Firma"),StringLength(60, MinimumLength = 3,ErrorMessage ="Pole musi mieć od {2} do {1} znaków")]
         public string CmP_Name { get; set; }
-        [Display(Name="Telefon (sekretariat)")]
+        [Display(Name="Telefon (sekretariat)") ,RegularExpression("^[0-9]*$", ErrorMessage = "{0} może zawierać tylko liczby")]
         public string CmP_PhoneNumber { get; set; }
-        [Display(Name = "Adres strony")]
+        [Display(Name = "Adres strony"),RegularExpression(@"((www\.|(http|https|ftp|news|file)+\:\/\/)[_.a-z0-9-]+\.[a-z0-9\/_:@=.+?,##%&~-]*[^.|\'|\# |!|\(|?|,| |>|<|;|\)])", ErrorMessage = "{0}  musi formę adresu internetowego")]
         public string CmP_PageAdress { get; set;}
     }
     public class Operator : IdentityUser
@@ -60,6 +60,9 @@ namespace AwesomeDesk.Models
         [Display(Name = "Numer telefonu")]
 
         public string CuS_PhoneNumber { get => base.PhoneNumber; set => base.PhoneNumber = value; }
+
+        [NotMapped]
+        public string CuS_FullName { get { return CuS_Name + " " + CuS_Surname; } }
     }
     public class Assistant:Operator
     {
@@ -76,8 +79,10 @@ namespace AwesomeDesk.Models
         [Display(Name = "Login")]
         public string AsS_Login { get => base.UserName; set => base.UserName = value; }
         [Display(Name = "Numer telefonu")]
-
         public string AsS_PhoneNumber { get => base.PhoneNumber; set => base.PhoneNumber = value; }
+        [NotMapped]
+        public string AsS_FullName{get{return AsS_Name + " " + AsS_Surname;}}
+      
     }
     public class TicketHeader
     {
@@ -99,7 +104,11 @@ namespace AwesomeDesk.Models
 
         [ForeignKey("TicketType")]
         public int TiH_TiSID { get; set; }
-        public TicketType TicketType { get; set; }         
+        public TicketType TicketType { get; set; }
+
+        [ForeignKey("Company")]
+        public int TiH_CMPID { get; set; }
+        public Company Company { get; set; }
 
     }
     public class TicketPosition 
