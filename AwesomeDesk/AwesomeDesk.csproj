@@ -171,16 +171,13 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TicketsController.cs" />
+    <Compile Include="Extensions\ROHtmlHelpers.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201912100111333_mig1.cs" />
-    <Compile Include="Migrations\201912100111333_mig1.Designer.cs">
-      <DependentUpon>201912100111333_mig1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001162040242_miggg112.cs" />
-    <Compile Include="Migrations\202001162040242_miggg112.Designer.cs">
-      <DependentUpon>202001162040242_miggg112.cs</DependentUpon>
+    <Compile Include="Migrations\202001172202258_mig1.cs" />
+    <Compile Include="Migrations\202001172202258_mig1.Designer.cs">
+      <DependentUpon>202001172202258_mig1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -202,11 +199,20 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\add.png" />
+    <Content Include="Images\awesomedesk_logo-full.png" />
+    <Content Include="Images\awesomedesk_logo-small.png" />
+    <Content Include="Images\burger.png" />
+    <Content Include="Images\delete.png" />
+    <Content Include="Images\edit.png" />
+    <Content Include="Images\favicon.png" />
     <Content Include="Images\logo_awesomeDesk.png" />
+    <Content Include="Images\search.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\datatables.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -318,11 +324,8 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201912100111333_mig1.resx">
-      <DependentUpon>201912100111333_mig1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001162040242_miggg112.resx">
-      <DependentUpon>202001162040242_miggg112.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202001172202258_mig1.resx">
+      <DependentUpon>202001172202258_mig1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -98,12 +98,12 @@ namespace AwesomeDesk.Models
         public string TiH_Subject { get; set; }
 
         [ForeignKey("TicketState")]
-        public int TiH_TiTID { get; set; }
+        public int TiH_TiSID { get; set; }
         public TicketState TicketState { get; set; }
 
 
         [ForeignKey("TicketType")]
-        public int TiH_TiSID { get; set; }
+        public int TiH_TiTID { get; set; }
         public TicketType TicketType { get; set; }
 
         [ForeignKey("Company")]

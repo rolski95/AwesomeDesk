@@ -79,6 +79,8 @@ namespace AwesomeDesk.Models
         [Display(Name = "Status zgłoszenia")]
         public string TiS_Name { get; set; }
 
+        public List<TicketState> TicketStates { get; set; }
+
     }
     public class AssistantCreateTicketViewModel
     {

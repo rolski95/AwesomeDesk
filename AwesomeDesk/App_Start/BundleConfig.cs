@@ -10,7 +10,8 @@ namespace AwesomeDesk
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js").
-                        Include("~/Scripts/ROScripts.js"));
+                        Include("~/Scripts/ROScripts.js").
+                        Include("~/Scripts/datatables.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

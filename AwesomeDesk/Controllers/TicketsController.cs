@@ -80,10 +80,12 @@ namespace AwesomeDesk.Controllers
                                               where tic.TiC_TiHID == TiH.TiH_ID
                                               select cus.CuS_Name + " " + cus.CuS_Surname
 
-                                               ).ToList()
+                                               ).ToList(),
+                                 TicketStates = db.TicketStates.ToList()
 
                              }).ToList();
                 string sql = model.ToString();
+
                 return View("ListAssistants", model);
             }
         }
@@ -110,12 +112,14 @@ namespace AwesomeDesk.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CustomerCreateTicketViewModel model)
         {
+
+            var userid = User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
                 TicketHeader tih = db.TicketHeaders.Add(new TicketHeader
                 {
                     TiH_Subject = model.TiH_Subject,
-                    TiH_CMPID=db.Customers.Where(x=>x.Id==User.Identity.GetUserId()).FirstOrDefault().CuS_CMPID,
+                    TiH_CMPID = db.Customers.Where(x => x.Id == userid).FirstOrDefault().CuS_CMPID,
                     TiH_TiTID = 1,
                     TiH_TiSID = 1
                 });
@@ -151,8 +155,8 @@ namespace AwesomeDesk.Controllers
                     TiH_Subject = model.TiH_Subject,
                     TiH_TiTID = 1,
                     TiH_TiSID = 1,
-                    TiH_CMPID=model.TiH_CMPID
-                    
+                    TiH_CMPID = model.TiH_CMPID
+
                 });
                 TicketPosition tip = db.TicketPositions.Add(new TicketPosition
                 {
@@ -179,6 +183,7 @@ namespace AwesomeDesk.Controllers
         [Authorize(Roles = "Customer,Assistant")]
         public ActionResult Details(int? id)
         {
+            var userid = User.Identity.GetUserId();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -187,6 +192,12 @@ namespace AwesomeDesk.Controllers
             ViewBag.Subject = db.TicketHeaders.Where(x => x.TiH_ID == id).FirstOrDefault().TiH_Subject;
             if (User.IsInRole("Customer"))
             {
+                if (db.TicketHeaders.Where(x => x.TiH_ID == id).FirstOrDefault().TiH_CMPID != db.Customers.Where(y => y.Id == userid).FirstOrDefault().CuS_CMPID) //blokada przed próbą podejrzenia  ze strony "innych" klientów
+                {
+                    TempData["Error"] = "Nie masz uprawnień do przeglądania wybranego zgłoszenia.";
+                    return RedirectToAction("List");
+
+                }
                 var model = (from tih in db.TicketHeaders
                              join tip in db.TicketPositions on tih.TiH_ID equals tip.TiP_TiHID
                              join ass in db.Assistants on tip.TiP_ASSID equals ass.Id into _ass
@@ -218,6 +229,7 @@ namespace AwesomeDesk.Controllers
             }
             else
             {
+
                 var model = (from tih in db.TicketHeaders
                              join tip in db.TicketPositions on tih.TiH_ID equals tip.TiP_TiHID
                              join ass in db.Assistants on tip.TiP_ASSID equals ass.Id into _ass
@@ -291,6 +303,16 @@ namespace AwesomeDesk.Controllers
         public ActionResult Details(AssistantAddResponseViewModel modelAssistant)
         {
             AssistantAddResponseViewModel tmp = modelAssistant;
+            var userid = User.Identity.GetUserId();
+            var tihid = tmp.AssistantDetailsTickets.FirstOrDefault().TiH_ID;
+            int counter = db.TicketHeaderAssistants.Where(x => x.TiA_TiHID == tihid && x.TiA_AsSID == userid).Count();
+
+            if (counter== 0) //blokada przed próbą odpowiedzi ze strony niepodppiętych asystentów
+            {
+                TempData["Error"] = "Nie masz udzielić odpowiedzi na zgłoszenie, ponieważ nie jesteś do niego przypisany!";
+                return RedirectToAction("List");
+            }
+          
             if (ModelState.IsValid)
             {
                 db.TicketPositions.Add(new TicketPosition
@@ -319,13 +341,13 @@ namespace AwesomeDesk.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             if (db.TicketHeaderAssistants.Where(x => x.TiA_AsSID == assID && x.TiA_TiHID == (int)id).Count() == 0)
-                {
+            {
                 db.TicketHeaderAssistants.Add(new TicketHeaderAssistant
                 {
                     TiA_TiHID = (int)id,
                     TiA_AsSID = assID
 
-                }); 
+                });
                 db.SaveChanges();
                 TempData["Success"] = "Pomyślnie dodano cię do zgłoszenia";
                 return RedirectToAction("List");
@@ -340,6 +362,21 @@ namespace AwesomeDesk.Controllers
 
         }
 
+
+        [Authorize(Roles = "Assistant")]
+        public ActionResult ChangeState(int? id, int? idstate)
+        {
+            var assID = User.Identity.GetUserId();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            TicketHeader tih = db.TicketHeaders.Where(x => x.TiH_ID == id).FirstOrDefault();
+            tih.TiH_TiSID = (int)idstate;
+            db.SaveChanges();
+            TempData["Success"] = "Pomyślnie zmieniono status zgłoszenia.";
+            return RedirectToAction("List");
+        }
         public ActionResult Changelog()
         {
 

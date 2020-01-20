@@ -26,6 +26,26 @@
         </div>
     </nav>
     <div class="ro-body">
+        @if (TempData["Error"] != null)
+        {
+
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Błąd!</strong>  @TempData["Error"].ToString()
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+
+        }
+        @if (TempData["Success"] != null)
+        {
+
+            <div class="alert alert-success" role="alert">
+                <p><strong>Sukces:</strong> @TempData["Success"].ToString()</p>
+            </div>
+        }
+
         @RenderBody()
     </div>
 
