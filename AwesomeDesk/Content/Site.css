@@ -67,6 +67,27 @@ textarea {
 /*--multilevel dropdown*/
 
 /*--------------------------------------------------------*/
+.ro-icon{
+    width: 20px;
+    height: 20px;
+}
+
+.ro-w-5 {
+    width: 5% !important;
+}
+.ro-w-3 {
+    width: 3% !important;
+}
+
+
+#example > thead > tr > th > input {
+    padding: 2px;
+}
+
+#example > thead > tr > th {
+    padding: 4px 4px;
+}
+
 
 
 /*----------------------login screen-----------------------------*/
@@ -150,9 +171,9 @@ html {
 }
 /*--------------------------------------------------------*/
 
-thead input {
-    width: 100%;
-    padding: 3px;
-    box-sizing: border-box;
-
+.ro-td-short {
+    max-width: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

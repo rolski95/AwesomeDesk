@@ -9,13 +9,13 @@ namespace AwesomeDesk.Extensions
 {
     public static class ROHTMLHelpers
     {
-        public static IHtmlString ImageActionLink(this HtmlHelper htmlHelper, string linkText, string action, string controller, object routeValues, object htmlAttributes, string imageSrc)
+        public static IHtmlString ImageActionLink(this HtmlHelper htmlHelper, string linkText, string action, string controller, object routeValues, object htmlAttributes, string imageSrc, string px_width, string px_height)
         {
             var urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
             var img = new TagBuilder("img");
             img.Attributes.Add("src", VirtualPathUtility.ToAbsolute(imageSrc));
-            img.Attributes.Add("height", "40");
-            img.Attributes.Add("width", "40");
+            img.Attributes.Add("height", px_height);
+            img.Attributes.Add("width", px_width);
 
             var anchor = new TagBuilder("a")
             {

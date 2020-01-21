@@ -29,7 +29,8 @@ namespace AwesomeDesk
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/Site.css"));
+                      "~/Content/Site.css"
+                      , "~/Content/jquery.dataTables.min.css"));
         }
     }
 }

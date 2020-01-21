@@ -9,8 +9,8 @@
 
 <h2>Wszystkie Zgłoszenia</h2>
 <p>
-    @Html.ImageActionLink("Utwórz nowe zgłoszenie", "Create", "Tickets", null, null, "~/Images/add.png")
-   
+    @Html.ImageActionLink("", "Create", "Tickets", null, new { @title = "Utwórz nowe zgłoszenie" }, "~/Images/add.png","40","40")
+
 </p>
 
 
@@ -18,9 +18,8 @@
     <table class="table table-striped table-bordered " id="example">
 
         <thead>
-
             <tr>
-                <th>
+                <th class="ro-w-3">
                     @Html.DisplayNameFor(model => model.TiH_ID)
                 </th>
                 <th class="w-25">
@@ -62,12 +61,30 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.TiS_Name)
                     </td>
-                    <td>
-                        @foreach (var ass in item.Assistants)
+
+
+
+                    @{
+                        int x = 0;
+                        string assistants = "";
+                        foreach (var ass in item.Assistants)
                         {
-                            <p> @Html.DisplayFor(modelItem => ass)</p>
+                            if (x == 0)
+                            {
+                                assistants = assistants + ass;
+                            }
+                            else
+                            {
+                                assistants =  assistants+","  + ass;
+                            }
+                            x++;
                         }
-                    </td>
+                        <td class="ro-td-short"  title="@assistants">
+                           @assistants
+                        </td>
+
+                    }
+
                     <td>
                         @foreach (var cus in item.Customers)
                         {
@@ -79,26 +96,27 @@
 
 
                     <td>
-                        <div class="dropdown">
+                        <div class="btn-group">
+                            <div class="dropdown">
+                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Opcje
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                @Html.ActionLink("Przypisz zgłoszenie", "AssignToYourself", new { id = item.TiH_ID }, new { @class = "dropdown-item" })
+                                    <img class="ro-icon" src="~/Images/burger.png" title="Opcje"/>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    @Html.ActionLink("Przypisz zgłoszenie", "AssignToYourself", new { id = item.TiH_ID }, new { @class = "dropdown-item" })
+                                </div>
                             </div>
-                        </div>
-                        <div class="dropdown">
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Stan zgłoszenia
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink2">
-                                @foreach (var state in item.TicketStates)
-                                {
-                                    @Html.ActionLink(state.TiS_Name, "ChangeState", new { id = item.TiH_ID, idstate = state.TiS_ID }, new { @class = "dropdown-item" })
+                            <div class="dropdown">
+                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img class="ro-icon" src="~/Images/states.png" title="Status" />
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink2" aria->
+                                    @foreach (var state in item.TicketStates)
+                                    {
+                                        @Html.ActionLink(state.TiS_Name, "ChangeState", new { id = item.TiH_ID, idstate = state.TiS_ID }, new { @class = "dropdown-item" })
 
-                                }
+                                    }
+                                </div>
                             </div>
                         </div>
                     </td>
