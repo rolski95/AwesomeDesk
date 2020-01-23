@@ -22,12 +22,12 @@ $(document).ready(function () {
 
     // Setup - add a text input to each footer cell
 
-    $('#example tfoot th').each(function () {
+    $('.ro-datatable tfoot th').each(function () {
         var title = $(this).text();
         $(this).html('<input type="text" class="form-control text-box " />');
     });
     // DataTable
-    var table = $('#example').DataTable({
+    var table = $('.ro-datatable').DataTable({
         "language": {
             "sProcessing": "Przetwarzanie...",
             "sLengthMenu": "Pokaż _MENU_ pozycji",
@@ -68,7 +68,7 @@ $(document).ready(function () {
             }
         });
     });
-    $('#example tfoot tr').appendTo('#example thead');
+    $('.ro-datatable tfoot tr').appendTo('.ro-datatable thead');
 });
 
 

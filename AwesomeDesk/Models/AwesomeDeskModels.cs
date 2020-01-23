@@ -9,7 +9,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-
+using AwesomeDesk.Extensions;
 namespace AwesomeDesk.Models
 {
     
@@ -18,7 +18,8 @@ namespace AwesomeDesk.Models
         public virtual ICollection<Customer> Customers { get; set; }
         [Key]
         public int CmP_ID { get; set; }
-        [Display(Name = "Firma"),StringLength(60, MinimumLength = 3,ErrorMessage ="Pole musi mieć od {2} do {1} znaków")]
+        [Required,Index(IsUnique =true),UniqueCompanyName(ErrorMessage ="Podana firma już istnieje!")]
+        [Display(Name = "Firma"),MinLength(3,ErrorMessage ="Pole musi miec minimum {1} znaków "), MaxLength(60, ErrorMessage = "Pole musi miec maksimum {1} znaków)")]
         public string CmP_Name { get; set; }
         [Display(Name="Telefon (sekretariat)") ,RegularExpression("^[0-9]*$", ErrorMessage = "{0} może zawierać tylko liczby")]
         public string CmP_PhoneNumber { get; set; }

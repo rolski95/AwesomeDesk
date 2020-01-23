@@ -1,0 +1,34 @@
+﻿
+
+body > div.container.h-100 > div > div {
+    background: #33cc99;
+}
+
+#loginForm > form > div.input-group.mb-3 > div > span {
+    background: #f36529 !important;
+}
+
+#loginForm > form > div.input-group.mb-2 > div > span {
+    background: #f36529 !important;
+}
+
+#loginForm > form > div.d-flex.justify-content-center.mt-3.login_container > input {
+    background: #f36529 !important;
+}
+#dropdownMenuLink {
+    background: #f36529;
+}
+body > div.ro-body div > input.btn.btn-default {
+    background: #f36529;
+}
+
+#dropdownMenuLink2 {
+    background: #33cc99;
+}
+#example_paginate > ul > li {
+    padding: 0.5em 4px;
+}
+
+#example_wrapper {
+    width: 99%;
+}

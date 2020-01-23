@@ -1,0 +1,15 @@
+﻿body > div.container.h-100 > div > div {
+    background: #33cc99;
+}
+
+#loginForm > form > div.input-group.mb-3 > div > span {
+    background: #f36529 !important;
+}
+
+#loginForm > form > div.input-group.mb-2 > div > span {
+    background: #f36529 !important;
+}
+
+#loginForm > form > div.d-flex.justify-content-center.mt-3.login_container > input {
+    background: #f36529 !important;
+}

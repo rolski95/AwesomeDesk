@@ -80,15 +80,217 @@ textarea {
 }
 
 
-#example > thead > tr > th > input {
+
+
+/*----------------------Damian CSS-----------------------------*/
+/*h2 {
+    margin-top: 10px;
+}
+.ro-datatable > thead > tr > th > input {
     padding: 2px;
 }
 
-#example > thead > tr > th {
-    padding: 4px 4px;
+.ro-datatable > thead > tr > th {
+    padding: 10px 10px;
+}
+.ro-datatable_paginate > ul > li {
+    padding: 0.5em 4px;
+}
+
+.ro-datatable_wrapper {
+    width: 99%;
+}
+
+#TiH_Subject, #CmP_Name, #CmP_Name, #CmP_PhoneNumber, #CmP_PageAdress, #NewPositionContent, #CuS_Email, #CuS_Password, #CuS_Name, #CuS_Surname, #CuS_PhoneNumber {
+    max-width: 1000px;
+}
+#TiP_Content {
+    max-width: 1000px;
+    height: 150px
+}
+#dropdownMenuLink > img {
+    width: 25px;
+    height: auto;
+}
+#dropdownMenuLink2 > img {
+    width: 25px;
+    height: auto;
+}
+
+#dropdownMenuLink {
+   
+    border-color: transparent;
+    margin: 0 5px;
+    padding: 3px;
+}
+
+#dropdownMenuLink2 {
+   
+    border-color: transparent;
+    margin: 0 5px;
+    padding: 3px;
+}
+body > div.container.h-100 > div > div > div:nth-child(1) > div {
+    width: 290px;
+    border-radius: 20%;
+}
+
+body > div.container.h-100 > div > div > div:nth-child(1) > div > img {
+    border-radius: 0;
+    width: 240px;
+    height: auto;
+}
+#navbarSupportedContent > ul > li:nth-child(1) > a > img {
+    width: 60px;
+    height: auto;
+    margin: 0 20px;
+}
+
+body > div.ro-body > div > a {
+    display: inline-block;
+    font-size: 1rem;
+    background: #33cc99;
+    padding: .375rem .75rem;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    margin-left: 15px;
+    text-decoration: none;
+}
+
+#loginForm > form > div:nth-child(7) > a {
+    background: white !important;
+    color: #666;
+    margin-top: 10px;
+}
+
+body > nav.bg-light {
+    background-color: #f2f2f2 !important;
+    border-bottom: 4px solid #dee2e6;
+}
+body > div.ro-body div > input.btn.btn-default {
+
+    color: white;
+}*/
+
+#DataTables_Table_0 > thead > tr > th > input {
+    padding: 2px;
+}
+
+#DataTables_Table_0 > thead > tr > th {
+    padding: 10px 10px;
+}
+
+body > div.container.h-100 > div > div {
+    background: #33cc99;
+}
+
+#loginForm > form > div.input-group.mb-3 > div > span {
+    background: #f36529 !important;
+}
+
+#loginForm > form > div.input-group.mb-2 > div > span {
+    background: #f36529 !important;
+}
+
+#loginForm > form > div.d-flex.justify-content-center.mt-3.login_container > input {
+    background: #f36529 !important;
+}
+
+#loginForm > form > div:nth-child(7) > a {
+    background: white !important;
+    color: #666;
+    margin-top: 10px;
+}
+
+body > div.container.h-100 > div > div > div:nth-child(1) > div {
+    width: 290px;
+    border-radius: 20%;
+}
+
+    body > div.container.h-100 > div > div > div:nth-child(1) > div > img {
+        border-radius: 0;
+        width: 240px;
+        height: auto;
+    }
+
+#navbarSupportedContent > ul > li:nth-child(1) > a > img {
+    width: 60px;
+    height: auto;
+    margin: 0 20px;
+}
+
+body > nav.bg-dark {
+    background-color: #f2f2f2 !important;
+    border-bottom: 4px solid #dee2e6;
+}
+
+#DataTables_Table_0_paginate > ul > li {
+    padding: 0.5em 4px;
+}
+
+#DataTables_Table_0_wrapper {
+    width: 99%;
+}
+
+#dropdownMenuLink {
+    background: #aaa;
+    border-color: transparent;
+    margin: 0 5px;
+    padding: 3px;
+}
+
+#dropdownMenuLink2 {
+    background: #aaa;
+    border-color: transparent;
+    margin: 0 5px;
+    padding: 3px;
+}
+
+#dropdownMenuLink > img {
+    width: 25px;
+    height: auto;
+}
+
+#dropdownMenuLink2 > img {
+    width: 25px;
+    height: auto;
+}
+
+#TiH_Subject, #CmP_Name, #CmP_Name, #CmP_PhoneNumber, #CmP_PageAdress, #NewPositionContent, #CuS_Email, #CuS_Password, #CuS_Name, #CuS_Surname, #CuS_PhoneNumber {
+    max-width: 1000px;
+}
+
+#TiP_Content {
+    max-width: 1000px;
+    height: 150px
+}
+
+body div.ro-body > div > a {
+    display: inline-block;
+    font-size: 1rem;
+    background: #33cc99;
+    padding: .375rem .75rem;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    margin-left: 15px;
+    text-decoration: none;
+}
+
+h2 {
+    margin-top: 10px;
+}
+
+body div.ro-body div input.btn.btn-default {
+    background: #f36529;
+    color: white;
 }
 
 
+
+
+/*--------------------------------------------------------*/
 
 /*----------------------login screen-----------------------------*/
 body,

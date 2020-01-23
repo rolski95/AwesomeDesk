@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<AwesomeDesk.Models.Company>
-
+@using AwesomeDesk.Extensions
 @{
     ViewBag.Title = "Firmy";
     Layout = "~/Views/Shared/_LayoutAssistant.cshtml";
@@ -8,10 +8,11 @@
 <h2>Firmy</h2>
 
 <p>
-    @Html.ActionLink("Dodaj", "Create")
+
+    @Html.ImageActionLink("", "Create", "Companies", null, new { @title = "Dodaj nową firmę" }, "~/Images/add.png", "40", "40")
 </p>
 <div class="table-responsive">
-    <table class="table table-striped table-bordered">
+    <table class="table table-striped table-bordered ro-datatable">
         <thead>
             <tr>
                 <th>
@@ -20,10 +21,10 @@
                 <th>
                     @Html.DisplayNameFor(model => model.CmP_PhoneNumber)
                 </th>
-                <th>
+                <th >
                     @Html.DisplayNameFor(model => model.CmP_PageAdress)
-                </th>
-                <th></th>
+                </th >
+                <th class="ro-w-3">Dostępne akcje</th>
             </tr>
         </thead>
         <tbody>
@@ -39,12 +40,27 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.CmP_PageAdress)
                     </td>
-                    <td>
-                        @Html.ActionLink("Edytuj", "Edit", new { id = item.CmP_ID })
+                    <td >
+                       
+                        @Html.ImageActionLink("", "Edit", "Companies", new { id = item.CmP_ID }, new { @title = "Edytuj firmę" }, "~/Images/edit.png", "20", "20")
                     </td>
                 </tr>
             }
 
         </tbody>
+        <tfoot>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CmP_Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CmP_PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CmP_PageAdress)
+                </th>
+                <th>Dostępne akcje</th>
+            </tr>
+        </tfoot>
     </table>
 </div>
