@@ -13,43 +13,46 @@
 
     <thead>
         <tr>
-            <th width="30%"></th>
-            <th width="30%"></th>
+
+            <th></th>
         </tr>
     </thead>
     @foreach (var item in Model.CustomerDetailsTickets)
     {
-        if (item.AssOrCus == 2)
-        {
-            <tr>
-                <td></td>
-                <td>
-                    @{
-                        var param = "showhide('row_" + @Html.DisplayFor(modelItem => item.TiP_LP) + "')";
 
-                    }
-                    <button class="btn btn-light" onclick="@param; return false;"><b>@Html.DisplayFor(modelItem => item.OperatorName)</b> (@Html.DisplayFor(modelItem => item.TiP_Date)) </button>
-                    <div class="ticketContent" id="row_@Html.DisplayFor(modelItem => item.TiP_LP)">
-                        <p>    @Html.DisplayFor(modelItem => item.TiP_Content)</p>
-                    </div>
-                </td>
-
-            </tr>
-        }
         if (item.AssOrCus == 1)
         {
             <tr>
-                <td>
+                <td class="ro-msg-left">
                     @{
                         var param = "showhide('row_" + @Html.DisplayFor(modelItem => item.TiP_LP) + "')";
 
                     }
                     <button class="btn btn-light" onclick="@param; return false;"><b>@Html.DisplayFor(modelItem => item.OperatorName)</b> (@Html.DisplayFor(modelItem => item.TiP_Date)) </button>
                     <div class="ticketContent" id="row_@Html.DisplayFor(modelItem => item.TiP_LP)">
-                        <p>    @Html.DisplayFor(modelItem => item.TiP_Content)</p>
+                        @Html.DisplayFor(modelItem => item.TiP_Content)
                     </div>
+
                 </td>
-                <td></td>
+            </tr>
+        }
+
+        if (item.AssOrCus == 2)
+        {
+            <tr>
+
+                <td class="ro-msg-right">
+                    @{
+                        var param = "showhide('row_" + @Html.DisplayFor(modelItem => item.TiP_LP) + "')";
+
+                    }
+                    <button class="btn btn-light" onclick="@param; return false;"><b>@Html.DisplayFor(modelItem => item.OperatorName)</b> (@Html.DisplayFor(modelItem => item.TiP_Date)) </button>
+                    <div class="ticketContent" id="row_@Html.DisplayFor(modelItem => item.TiP_LP)">
+                        @Html.DisplayFor(modelItem => item.TiP_Content)
+                    </div>
+
+                </td>
+
             </tr>
         }
 
@@ -65,7 +68,7 @@
 
 
 
-@using (Html.BeginForm("DetailsCustomer","Tickets"))
+@using (Html.BeginForm("DetailsCustomer", "Tickets"))
 {
     @Html.AntiForgeryToken()
 

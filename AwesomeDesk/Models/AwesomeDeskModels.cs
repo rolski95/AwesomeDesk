@@ -121,7 +121,7 @@ namespace AwesomeDesk.Models
         public TicketHeader TicketHeader { get; set; }
 
         public int TiP_LP { get; set; }
-        [Display(Name = "Treść zgłoszenia"),StringLength(3000, MinimumLength = 8)]
+        [Display(Name = "Treść zgłoszenia"), MinLength(3, ErrorMessage = "Pole musi miec minimum {1} znaków "), MaxLength(25000, ErrorMessage = "Pole musi miec maksimum {1} znaków)")]
         public string TiP_Content {get;set;}            
 
         public DateTime TiP_Date { get; set; }
@@ -174,8 +174,12 @@ namespace AwesomeDesk.Models
         [Key]
         public int TwL_ID { get; set; }
         [ForeignKey("TicketHeader")]
-        public int? TwL_TiHID { get; set; }
+        public int? TwL_TIHID { get; set; }
         public TicketHeader TicketHeader { get; set; }
+
+        [ForeignKey("Assistant")]
+        public string TwL_ASSID { get; set; }
+        public Assistant Assistant { get; set; }
 
         [Display(Name = "Data rozpoczęcia")]
         public DateTime TwL_StartDate { get; set; }

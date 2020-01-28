@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<AwesomeDesk.Models.CustomerListTicketViewModel>
-
+@using AwesomeDesk.Extensions
 @{
     ViewBag.Title = "AwesomeDesk-Twoje Zgłoszenia";
     Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
@@ -8,16 +8,18 @@
 
 <h2>Twoje Zgłoszenia</h2>
 
-<p>
-    @Html.ActionLink("Utwórz nowe zgłoszenie", "Create")
-</p>
+<div class="ro-panel-right">
+    @Html.ImageActionLink("", "Create", "Tickets", null, new { @title = "Utwórz nowe zgłoszenie" }, "~/Images/add.png", "40", "40")
+</div>
+
+
 
 
 <div class="table-responsive">
-    <table class="table table-striped table-bordered">
+    <table class="table table-striped table-bordered  ro-datatable">
         <thead>
             <tr>
-                <th>
+                <th class="ro-w-3">
                     @Html.DisplayNameFor(model => model.TiH_ID)
                 </th>
                 <th>
@@ -49,6 +51,14 @@
                         @Html.DisplayFor(modelItem => item.TiH_Date)
                     </td>
                     <td>
+                        @if (item.MailState == 1)
+                        {
+                            <img src="~/Images/left_orange.png" width="20" height="20" title="Otrzymano odpowiedź od Asystenta" />
+                        }
+                        @if (item.MailState == 2)
+                        {
+                            <img src="~/Images/right_green.png" width="20" height="20" title="Wysłano odpowiedź do Asystenta" />
+                        }
                         @Html.DisplayFor(modelItem => item.TiS_Name)
                     </td>
                     <td>
@@ -60,5 +70,24 @@
                 </tr>
             }
         </tbody>
+        <tfoot>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TiH_ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TiH_Subject)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TiH_Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TiS_Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Assistants)
+                </th>
+            </tr>
+        </tfoot>
     </table>
 </div>

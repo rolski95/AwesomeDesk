@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AwesomeDesk.Extensions;
 
 namespace AwesomeDesk.Models
 {
@@ -23,6 +24,8 @@ namespace AwesomeDesk.Models
 
         [Display(Name = "Status zgłoszenia")]
         public string TiS_Name { get; set; }
+
+        public int MailState { get; set; }
     }
     public class CustomerCreateTicketViewModel
     {
@@ -81,6 +84,10 @@ namespace AwesomeDesk.Models
 
         public List<TicketState> TicketStates { get; set; }
 
+
+
+        public int MailState { get; set; }
+
     }
     public class AssistantCreateTicketViewModel
     {
@@ -117,7 +124,10 @@ namespace AwesomeDesk.Models
     public class AssistantAddResponseViewModel
     {
         public List<AssistantDetailsTicketViewModel> AssistantDetailsTickets { get; set; }
-        [Display(Name = "Odpowiedź")]
+        
+        public TicketWorkLog TicketWorkLog { get; set; }
+        [Required]
+        [Display(Name = "Odpowiedź"), MinLength(3, ErrorMessage = "Pole musi miec minimum {1} znaków "), MaxLength(25000, ErrorMessage = "Pole musi miec maksimum {1} znaków)")]
         public string NewPositionContent { get; set; }
 
     }
@@ -135,6 +145,8 @@ namespace AwesomeDesk.Models
 
         [Display(Name = "Firma")]
         public string CmP_Name{ get; set; }
+
+     
     }
     public class CustomerCreateViewModel
     {
@@ -164,7 +176,29 @@ namespace AwesomeDesk.Models
     }
 
 
+    public class TicketWorkLogViewModel
+    {
+        [Display(Name = "Data rozpoczęcia")]
+        public DateTime TwL_StartDate { get; set; }
+        [Display(Name = "Data zakończenia"), DateTimeNotLessThan("TwL_StartDate", "time")]
 
+    
+        public DateTime TwL_EndDate { get; set; }
+        [Display(Name = "Minuty")]
+        public int TwL_SpendMinutes { get; set; }
+
+        [Display(Name = "Godziny")]
+        public int TwL_SpendHours { get; set; }
+        [Display(Name = "Opis")]
+        public string TwL_Description { get; set; }
+        [Display(Name = "Czy opis ma być widoczny dla klienta?")]
+        public bool TwL_PublicDescription { get; set; }
+
+
+
+        public int? TwL_TIHID { get; set; }
+
+    }
 
 
 

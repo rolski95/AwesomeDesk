@@ -46,7 +46,9 @@ namespace AwesomeDesk.Controllers
                                                select AsS.UserName
                                                ).ToList(),
                                  TiH_ID = TiH.TiH_ID,
-                                 TiP_Content = TiP.TiP_Content
+                                 TiP_Content = TiP.TiP_Content,
+                                 MailState = (db.TicketPositions.Where(x => x.TiP_TiHID == TiH.TiH_ID).OrderByDescending(y => y.TiP_LP).FirstOrDefault().TiP_ASSID != null ? 1 :
+                                            db.TicketPositions.Where(x => x.TiP_TiHID == TiH.TiH_ID).OrderByDescending(y => y.TiP_LP).FirstOrDefault().TiP_CUSID != null ? 2 : -1)
 
                              }).ToList();
                 string sql = model.ToString();
@@ -81,10 +83,12 @@ namespace AwesomeDesk.Controllers
                                               select cus.CuS_Name + " " + cus.CuS_Surname
 
                                                ).ToList(),
-                                 TicketStates = db.TicketStates.ToList()
+                                 TicketStates = db.TicketStates.ToList(),
+                                 MailState = (db.TicketPositions.Where(x => x.TiP_TiHID == TiH.TiH_ID).OrderByDescending(y => y.TiP_LP).FirstOrDefault().TiP_ASSID != null ? 1 :
+                                            db.TicketPositions.Where(x => x.TiP_TiHID == TiH.TiH_ID).OrderByDescending(y => y.TiP_LP).FirstOrDefault().TiP_CUSID != null ? 2 : -1)
 
                              }).ToList();
-                string sql = model.ToString();
+
 
                 return View("ListAssistants", model);
             }
@@ -252,7 +256,15 @@ namespace AwesomeDesk.Controllers
                              }).ToList();
                 var model2 = new AssistantAddResponseViewModel()
                 {
-                    AssistantDetailsTickets = model
+                    AssistantDetailsTickets = model,
+                    TicketWorkLog = new TicketWorkLog
+                    {
+                        TwL_ASSID = userid,
+                        TwL_TIHID = id,
+                        TwL_StartDate = DateTime.Now,
+                        TwL_EndDate = DateTime.Now
+                    }
+
                 };
                 return View("DetailsAssistants", model2);
             }
@@ -307,12 +319,12 @@ namespace AwesomeDesk.Controllers
             var tihid = tmp.AssistantDetailsTickets.FirstOrDefault().TiH_ID;
             int counter = db.TicketHeaderAssistants.Where(x => x.TiA_TiHID == tihid && x.TiA_AsSID == userid).Count();
 
-            if (counter== 0) //blokada przed próbą odpowiedzi ze strony niepodppiętych asystentów
+            if (counter == 0) //blokada przed próbą odpowiedzi ze strony niepodppiętych asystentów
             {
                 TempData["Error"] = "Nie masz udzielić odpowiedzi na zgłoszenie, ponieważ nie jesteś do niego przypisany!";
                 return RedirectToAction("List");
             }
-          
+
             if (ModelState.IsValid)
             {
                 db.TicketPositions.Add(new TicketPosition
@@ -326,9 +338,12 @@ namespace AwesomeDesk.Controllers
                     TiP_Content = tmp.NewPositionContent
                 });
                 db.SaveChanges();
+
                 return RedirectToAction("Details", new { id = tmp.AssistantDetailsTickets.FirstOrDefault().TiH_ID });
             }
-            return View("DetailsAssistants");
+            ViewBag.Id = tihid;
+            ViewBag.Subject = db.TicketHeaders.Where(x => x.TiH_ID == tihid).FirstOrDefault().TiH_Subject;
+            return View("DetailsAssistants", tmp);
         }
 
 
@@ -377,6 +392,42 @@ namespace AwesomeDesk.Controllers
             TempData["Success"] = "Pomyślnie zmieniono status zgłoszenia.";
             return RedirectToAction("List");
         }
+
+
+        public ActionResult AddWorkTimeLog(int? id)
+        {
+            var _twlModel = new TicketWorkLogViewModel();
+            _twlModel.TwL_TIHID = id;
+            return PartialView("AddWorkTimeLog", _twlModel);
+        }
+        [HttpPost]
+        public ActionResult AddWorkTimeLog(TicketWorkLogViewModel model)
+        {
+            var userid = User.Identity.GetUserId();
+            if (ModelState.IsValid)
+            {
+                db.TicketWorkLogs.Add(new TicketWorkLog
+                {
+                    TwL_ASSID = userid,
+                    TwL_TIHID = model.TwL_TIHID,
+                    TwL_StartDate = model.TwL_StartDate,
+                    TwL_EndDate = model.TwL_EndDate,
+                    TwL_SpendMinutes = (model.TwL_SpendHours * 60) + model.TwL_SpendMinutes,
+                    TwL_Description = model.TwL_Description,
+                    TwL_PublicDescription = model.TwL_PublicDescription
+
+
+                });
+                db.SaveChanges();
+                TempData["Success"] = "Pomyśłnie dodano wpis w dzienniku pracy";
+                return RedirectToAction("List");
+            }
+            return PartialView("AddWorkTimeLog", model);
+
+
+        }
+
+
         public ActionResult Changelog()
         {
 
@@ -384,8 +435,8 @@ namespace AwesomeDesk.Controllers
         }
         public ActionResult Functional()
         {
-
-            return View("Functional");
+        
+                return View("Functional");
         }
         public IQueryable<string> GetAssistantsNames(int _TiH_ID)
         {

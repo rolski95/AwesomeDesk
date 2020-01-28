@@ -5,7 +5,7 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    width:100%;
+    width: 100%;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -21,6 +21,7 @@ select,
 textarea {
     max-width: 280px;
 }
+
 .ro-login1 {
     border: 6px solid;
     border-color: wheat;
@@ -48,26 +49,138 @@ textarea {
 .ro-navbar-nav {
     color: black;
 }
-.ro_AssResponse > a{
-   width: 30px;
-   word-break:break-all;
-   display:inline-block;
-   white-space:normal;
+
+.ro_AssResponse > a {
+    width: 30px;
+    word-break: break-all;
+    display: inline-block;
+    white-space: normal;
 }
+
 .ro-body {
     margin-left: 70px;
     margin-right: 70px;
 }
+
 .btn-light-ro {
     color: #fff;
     background-color: #c36e08;
     border-color: #343a40;
 }
 
-/*--multilevel dropdown*/
+.ro-panel-right {
+    display: flex;
+    justify-content: flex-end;
+}
 
+.ro-msg-right {
+    text-align: right;
+    width: 100%;
+}
+
+    .ro-msg-right > button {
+     
+        background: #f36529;
+        margin-bottom: 0px;
+    }
+
+    .ro-msg-right > div {
+     
+        border: 4px outset #f36529;
+        background: #e17f55;
+        margin-top: 0px;
+    }
+
+.ro-msg-left {
+    text-align: left;
+    width: 100%;
+}
+
+    .ro-msg-left > button {
+        background: #33cc99;
+        margin-bottom: 0px;
+    }
+
+    .ro-msg-left > div {
+        border: 4px outset #33cc99;
+        background: #74d8b7;
+        margin-top: 0px;
+    }
+/*--tabs*/
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
+
+
+#tab-button {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+    #tab-button li {
+        display: table-cell;
+        width: 20%;
+    }
+
+        #tab-button li a {
+            display: block;
+            padding: .5em;
+            background: #eee;
+            border: 1px solid #ddd;
+            text-align: center;
+            color: #000;
+            text-decoration: none;
+        }
+
+        #tab-button li:not(:first-child) a {
+            border-left: none;
+        }
+
+        #tab-button li a:hover,
+        #tab-button .is-active a {
+            border-bottom-color: transparent;
+            background: #fff;
+        }
+
+.tab-contents {
+    padding: .5em 2em 1em;
+    border: 1px solid #ddd;
+}
+
+
+
+.tab-button-outer {
+    display: none;
+}
+
+.tab-contents {
+    margin-top: 20px;
+}
+
+@media screen and (min-width: 768px) {
+    .tab-button-outer {
+        position: relative;
+        z-index: 2;
+        display: block;
+    }
+
+    .tab-select-outer {
+        display: none;
+    }
+
+    .tab-contents {
+        position: relative;
+        top: -1px;
+        margin-top: 0;
+    }
+}
 /*--------------------------------------------------------*/
-.ro-icon{
+.ro-icon {
     width: 20px;
     height: 20px;
 }
@@ -75,6 +188,7 @@ textarea {
 .ro-w-5 {
     width: 5% !important;
 }
+
 .ro-w-3 {
     width: 3% !important;
 }

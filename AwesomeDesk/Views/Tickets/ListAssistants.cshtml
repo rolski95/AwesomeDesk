@@ -8,10 +8,13 @@
 
 
 <h2>Wszystkie Zgłoszenia</h2>
-<p>
-    @Html.ImageActionLink("", "Create", "Tickets", null, new { @title = "Utwórz nowe zgłoszenie" }, "~/Images/add.png","40","40")
+<div class="ro-panel-right">
+    @Html.ImageActionLink("", "Create", "Tickets", null, new { @title = "Utwórz nowe zgłoszenie" }, "~/Images/add.png", "40", "40")
 
-</p>
+</div>
+
+
+
 
 
 <div class="table-responsive">
@@ -61,6 +64,14 @@
                         @Html.DisplayFor(modelItem => item.TiH_Date)
                     </td>
                     <td>
+                        @if (item.MailState == 1)
+                        {
+                            <img src="~/Images/right_green.png" width="20" height="20" title="Wysłano odpowiedź do klienta" />
+                        }
+                        @if (item.MailState == 2)
+                        {
+                            <img src="~/Images/left_orange.png" width="20" height="20" title="Otrzymano odpowiedź od klienta" />
+                        }
                         @Html.DisplayFor(modelItem => item.TiS_Name)
                     </td>
                     @{
@@ -124,7 +135,7 @@
         </tbody>
         <tfoot>
 
-            <tr >
+            <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.TiH_ID)
                 </th>

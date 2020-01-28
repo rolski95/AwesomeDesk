@@ -8,17 +8,21 @@
 
 
 <h1 style="color:red"> To są tylko założenia - nie wszystkie są jeszcze wdrożone</h1>
+<h3 style="color:red"> Niezrealizowane</h3>
+<h3 style="color:orange"> Zrealiziowane w ok 50%</h3>
+<h3 style="color:green"> Zrealiziowane</h3>
+
 <p>W systemie mamy 3 dostępne role:</p>
 <br />
 <button class="btn btn-light" onclick="showhide('roleAdmin'); return false;"><b>Administrator</b> </button>
 <div class="ticketContent" id="roleAdmin">
     <ol>
-        <li>Administrator moze archiwizować zgłoszenia ( do zarchiwizowanego zgłoszenia ma wgląd tylko Administrator</li>
-        <li>Administrator może stworzyć nowe zgłoszenie w imieniu wybranej firmy (jest to przydatne w wypadku, kiedy klient zgłasza coś asystentowi przez telefon)</li>
-        <li>Administrator może udzielić odpowiedzi do każdego zgłoszenia( bez potrzeby bycia przypisanym)</li>
-        <li>Administrator może przypinać zgłoszenie do jakiegokolwiek asystenta.</li>
-        <li>Administrator może przepiać zgłoszenie do innego asystenta</li>
-        <li>Administrator może zmienić status zgłoszenia</li>
+        <li style="color:red">Administrator moze archiwizować zgłoszenia ( do zarchiwizowanego zgłoszenia ma wgląd tylko Administrator</li>
+        <li style="color:red">Administrator może stworzyć nowe zgłoszenie w imieniu wybranej firmy (jest to przydatne w wypadku, kiedy klient zgłasza coś asystentowi przez telefon)</li>
+        <li style="color:red">Administrator może udzielić odpowiedzi do każdego zgłoszenia( bez potrzeby bycia przypisanym)</li>
+        <li style="color:red">Administrator może przypinać zgłoszenie do jakiegokolwiek asystenta.</li>
+        <li style="color:red">Administrator może przepiać zgłoszenie do innego asystenta</li>
+        <li style="color:red">Administrator może zmienić status zgłoszenia</li>
         <li></li>
         <li></li>
     </ol>
@@ -27,27 +31,22 @@
 <button class="btn btn-light" onclick="showhide('roleAssistant'); return false;"><b>Asystent</b> </button>
 <div class="ticketContent" id="roleAssistant">
     <ol>
-        <li>Asystent ma wgląd do wszystkich zgłoszeń</li>
-        <li>Asystent może stworzyć nowe zgłoszenie w imieniu wybranej firmy (jest to przydatne w wypadku, kiedy klient zgłasza coś asystentowi przez telefon)</li>
-        <li>Asystent może udzielić odpowiedzi w zgłoszeniu, do którego jest przydzielony. Jedno zgłoszenie moze miec wielu przydzielonych asystentów</li>
-        <li>Asystent może sam przyjąć zgłoszenie, które nia ma przypisanego zgłoszenia. Jeżeli zgłoszenie jest już przypisane do kogoś to Asystent moze dołaczyć( przydzielić się) do zgłoszenia jako kolejny asystent.</li>
-        <li>Asystent nie może oddać  zgłoszenia innemu asystentowi oraz dołączyć innego asystenta do zgłoszenia</li>
-        <li>Asystent moze dodać czas pracy tylko w zgłoszeniach, do któych jest przydzielony.</li>
-        <li>Asystent może zmienić status zgłoszenia</li>
-        <li></li>
+        <li style="color:green">Asystent ma wgląd do wszystkich zgłoszeń</listyle="color:red">
+        <li style="color:green">Asystent może stworzyć nowe zgłoszenie w imieniu wybranej firmy (jest to przydatne w wypadku, kiedy klient zgłasza coś asystentowi przez telefon)</li>
+        <li style="color:green">Asystent może udzielić odpowiedzi w zgłoszeniu, do którego jest przydzielony. Jedno zgłoszenie moze miec wielu przydzielonych asystentów</li>
+        <li style="color:green">Asystent może sam przyjąć zgłoszenie, które nia ma przypisanego zgłoszenia. Jeżeli zgłoszenie jest już przypisane do kogoś to Asystent moze dołaczyć( przydzielić się) do zgłoszenia jako kolejny asystent.</li>
+        <li style="color:green">Asystent nie może oddać  zgłoszenia innemu asystentowi oraz dołączyć innego asystenta do zgłoszenia</li>
+        <li style="color:red">Asystent moze dodać czas pracy tylko w zgłoszeniach, do któych jest przydzielony.</li>
+        <li style="color:orange">Asystent może zmienić status zgłoszenia</li>
     </ol>
 </div>
 <br />
 <button class="btn btn-light" onclick="showhide('roleCustomer'); return false;"><b>Klient</b> </button>
 <div class="ticketContent" id="roleCustomer">
     <ol>
-        <li>Klient ma wgląd tylko do swoich zgłoszeń lub tylko do zgłoszeń klientów należących do tej samej  firmy (zależne od parametrów globalnych)</li>
-        <li>Klient może dodać nowe zgłoszenie. Nie może on go edytować oraz usunąć</li>
-        <li>Klient może udzielić odpowiedzi do swojego zgłoszenia  tylko do zgłoszeń klientów należących do tej samej firmy (zależne od parametrów globalnych)</li>
-        <li>Klient nie może zmienić statusu zgłoszenia</li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li style="color:orange">Klient ma wgląd tylko do swoich zgłoszeń lub tylko do zgłoszeń klientów należących do tej samej  firmy (zależne od parametrów globalnych)</li>
+        <li style="color:green">Klient może dodać nowe zgłoszenie. Nie może on go edytować oraz usunąć</li>
+        <li style="color:orange">Klient może udzielić odpowiedzi do swojego zgłoszenia lun tylko do zgłoszeń klientów należących do tej samej firmy (zależne od parametrów globalnych)</li>
+        <li style="color:green">Klient nie może zmienić statusu zgłoszenia</li>
     </ol>
 </div>
