@@ -174,16 +174,15 @@ namespace AwesomeDesk.Models
         [Display(Name = "Firma")]
         public int CuS_CMPID { get; set; }
     }
-
-
     public class TicketWorkLogViewModel
     {
         [Display(Name = "Data rozpoczęcia")]
-        [DisplayFormat (DataFormatString  = "{0:MM/dd/yyyy HH:mm}" ,ApplyFormatInEditMode = true)]
+        [DisplayFormat (DataFormatString  = "{0:dd-MM-yyyy hh:mm}", ApplyFormatInEditMode = true)]
         public DateTime TwL_StartDate { get; set; }
 
-        [DisplayFormat( DataFormatString = "{0:MM/dd/yyyy HH:mm}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data zakończenia")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy hh:mm}", ApplyFormatInEditMode = true)]
+
         public DateTime TwL_EndDate { get; set; }
 
         [Display(Name = "Minuty"),WorkTime]
@@ -202,6 +201,32 @@ namespace AwesomeDesk.Models
 
     }
 
+    public class ListWorkLogViewModel
+    {
+        [Display(Name = "Data rozpoczęcia")]
+   
+        public DateTime TwL_StartDate { get; set; }
 
+      
+        [Display(Name = "Data zakończenia")]
+        public DateTime TwL_EndDate { get; set; }
+
+        [Display(Name = "Minuty")]
+        public int TwL_SpendMinutes { get; set; }
+
+        [Display(Name = "Godziny")]
+        public int TwL_SpendHours { get; set; }
+        [Display(Name = "Opis")]
+        public string TwL_Description { get; set; }
+        [Display(Name = "Czy opis ma być widoczny dla klienta?")]
+        public bool TwL_PublicDescription { get; set; }
+
+        [Display(Name = "Asystent")]
+        public string Asystent { get; set; }
+
+        public int? TwL_TIHID { get; set; }
+
+        public int? TwL_ID { get; set; }
+    }
 
 }

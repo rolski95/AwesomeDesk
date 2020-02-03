@@ -98,6 +98,8 @@
         </div>
     </div>
     <div id="tab02" class="tab-contents">
+        @Html.Action("ListWorkTime", Model.AssistantDetailsTickets.FirstOrDefault().TiH_ID)
+
         @Html.Action("AddWorkTimeLog", Model.AssistantDetailsTickets.FirstOrDefault().TiH_ID)
     </div>
 
