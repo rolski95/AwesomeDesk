@@ -48,6 +48,8 @@ namespace AwesomeDesk
             UserManager<Operator> UserManager = new UserManager<Operator>(new UserStore<Operator>(context));
 
 
+
+
             // In Startup iam creating first Admin Role and creating a default Admin User    
             if (!roleManager.RoleExists("Adminstrator"))
             {
@@ -63,11 +65,11 @@ namespace AwesomeDesk
 
                 var user = new Operator
                 {
-                    UserName = "admin@o2.pl",
-                    Email = "admin@o2.pl",
+                    UserName = "admin@example.com",
+                    Email = "admin@example.com",
                    
                 };
-                var chkUser = UserManager.Create(user, "!@#QWEasd");
+                var chkUser = UserManager.Create(user, "Qwerty!12345");
                 
                 
                 //Add default User to Role Admin   
@@ -90,7 +92,7 @@ namespace AwesomeDesk
                 //AddCustomer("Com1Cus2@example.com", 1, UserManager);
                 //AddCustomer("Com2Cus1@example.com", 2, UserManager);
                 //AddCustomer("Com2Cus2@example.com", 2,UserManager);
-
+            
 
             }
 
@@ -105,9 +107,11 @@ namespace AwesomeDesk
                 AddAssistant("sermiszcz@wp.pl", UserManager);
                 AddAssistant("mr.shadowdkj@gmail.com", UserManager);
                 AddAssistant("rolski95@o2.pl", UserManager);
+             
 
-            }
-
+            }    
+     
+    
         }
         private void AddCustomer(string Email ,int CompanyID, UserManager<Operator> UserManager)
         {
