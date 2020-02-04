@@ -16,7 +16,7 @@ namespace AwesomeDesk.Controllers
 
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        [Authorize(Roles = "Assistant")]
+        [Authorize(Roles = "Assistant,Administrator")]
         public ActionResult List()
         {
             var model = (from cus in db.Customers
@@ -32,18 +32,18 @@ namespace AwesomeDesk.Controllers
                        ).ToList();
             return View(model);
         }
-        [Authorize(Roles = "Assistant")]
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
-            //this.ViewData["CmP"] = new SelectList(db.Companies.ToList(), "CmP_ID", "CmP_Name");
         
             var model = new CustomerCreateViewModel();
             model.Companies = db.Companies.ToList();
             return View(model);
         }
+
         [HttpPost]
-        [Authorize(Roles = "Assistant")]
+        [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]  
         public ActionResult Create(CustomerCreateViewModel model)
         {
@@ -70,24 +70,6 @@ namespace AwesomeDesk.Controllers
             }
             model.Companies = db.Companies.ToList();
             return View(model);
-        }
-        private void AddCustomer(string Email, int CompanyID, UserManager<Operator> UserManager)
-        {
-
-            var user = new Customer
-            {
-                UserName = Email,
-                Email = Email,
-                CuS_CMPID = CompanyID
-
-            };
-            var chkUser = UserManager.Create(user, "Qwerty!12345");
-
-            if (chkUser.Succeeded)
-            {
-                var result1 = UserManager.AddToRole(user.Id, "Customer");
-            }
-        }
-
+        }    
     }
 }

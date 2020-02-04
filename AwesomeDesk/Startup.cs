@@ -25,6 +25,9 @@ namespace AwesomeDesk
                 if (context.TicketStates.ToList().Count() == 0)
                 {
                     context.TicketStates.Add(new TicketState { TiS_Name = "Otwarte", TiS_Description = "Zgłoszenie jest otwarte" });
+                    context.TicketStates.Add(new TicketState { TiS_Name = "W realizacji", TiS_Description = "Zgłoszenie jest  w realizacji" });
+                    context.TicketStates.Add(new TicketState { TiS_Name = "Zamknięte", TiS_Description = "Zgłoszenie jest zamknięte" });
+
                     context.TicketTypes.Add(new TicketType { TiT_Name = "Zgłoszenie", TiT_Description = "Standardowe zgłoszenie" });
                 
                     //context.Companies.Add(new Company { CmP_Name = "Company#1" });
@@ -50,7 +53,7 @@ namespace AwesomeDesk
 
 
             // In Startup iam creating first Admin Role and creating a default Admin     
-            if (!roleManager.RoleExists("Adminstrator"))
+            if (!roleManager.RoleExists("Administrator"))
             {
 
                 // first we create Admin rool   

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<AwesomeDesk.Models.ListWorkLogViewModel>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered  ">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.AsystentL)
+                </th>
+                <th class="ro-w-3">
+                    @Html.DisplayNameFor(model => model.TwL_SpendHoursL)
+                </th>
+                <th class="ro-w-3">
+                    @Html.DisplayNameFor(model => model.TwL_SpendMinutesL)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TwL_DescriptionL)
+                </th>
+                <th class="ro-w-3">
+                    @Html.DisplayNameFor(model => model.TwL_PublicDescriptionL)
+                </th>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AsystentL)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TwL_SpendHoursL)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TwL_SpendMinutesL)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TwL_DescriptionL)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TwL_PublicDescriptionL)
+                    </td>
+               
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>

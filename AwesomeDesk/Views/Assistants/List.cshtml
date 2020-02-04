@@ -1,0 +1,79 @@
+﻿@model IEnumerable<AwesomeDesk.Models.AssistantListViewModel>
+@using AwesomeDesk.Extensions
+@{
+    ViewBag.Title = "Lista asystentów";
+    Layout = "~/Views/Shared/_LayoutAssistant.cshtml";
+}
+
+<h2>Asystenci</h2>
+
+<p>
+    @Html.ImageActionLink("", "Create", "Assistants", null, new { @title = "Dodaj nowego asystenta" }, "~/Images/add.png", "40", "40")
+</p>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered ro-datatable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.AsS_Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AsS_Surname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AsS_Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AsS_PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AsS_IsAdmin)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AsS_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AsS_Surname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AsS_Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AsS_PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AsS_IsAdmin)
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.AsS_Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AsS_Surname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AsS_Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AsS_PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AsS_IsAdmin)
+                </th>
+            </tr>
+        </tfoot>
+    </table>
+</div>

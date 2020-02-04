@@ -37,7 +37,7 @@ namespace AwesomeDesk.Controllers
             return View(company);
         }
         // GET: Companies/Create
-        [Authorize(Roles = "Administrator,Assistant")]
+        [Authorize(Roles = "Administrator")]
 
         public ActionResult Create()
         {
@@ -46,7 +46,7 @@ namespace AwesomeDesk.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator,Assistant")]
+        [Authorize(Roles = "Administrator")]
 
         public ActionResult Create([Bind(Include = "CmP_ID,CmP_Name,CmP_PhoneNumber,CmP_PageAdress")] Company company)
         {
@@ -60,7 +60,7 @@ namespace AwesomeDesk.Controllers
             return View(company);
         }
         // GET: Companies/Edit/5
-        [Authorize(Roles = "Administrator,Assistant")]
+        [Authorize(Roles = "Administrator")]
 
         public ActionResult Edit(int? id)
         {
@@ -77,7 +77,7 @@ namespace AwesomeDesk.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Administrator,Assistant")]
+        [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CmP_ID,CmP_Name,CmP_PhoneNumber,CmP_PageAdress")] Company company)
         {
@@ -91,7 +91,7 @@ namespace AwesomeDesk.Controllers
         }
 
         // GET: Companies/Delete/5
-        [Authorize(Roles = "Administrator,Assistant")]
+        [Authorize(Roles = "Administrator")]
 
         public ActionResult Delete(int? id)
         {
@@ -108,8 +108,7 @@ namespace AwesomeDesk.Controllers
         }
 
         // POST: Companies/Delete/5
-        [Authorize(Roles = "Administrator,Assistant")]
-
+        [Authorize(Roles = "Administrator")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -117,15 +116,8 @@ namespace AwesomeDesk.Controllers
             Company company = db.Companies.Find(id);
             db.Companies.Remove(company);
             db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-
-
-       
-
-
-
+            return RedirectToAction("List");
+        }  
         protected override void Dispose(bool disposing)
         {
             if (disposing)

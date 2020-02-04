@@ -1,4 +1,5 @@
 ﻿
+
 $(function () {
     $(".ticketContent").hide();
 
@@ -51,56 +52,57 @@ $(document).ready(function () {
             today: 'far fa-calendar-check',
             clear: 'far fa-trash-alt',
             close: 'fas fa-times'
-        } });
- 
+        }
+    });
+
 
 
     $("#timeStart").datetimepicker(
         {
             showTodayButton: true,
             format: 'DD-MM-YYYY HH:mm',
-            showClose: true,               
+            showClose: true,
             stepping: 1
-        
+
         });
     $("#timeEnd").datetimepicker({
         showTodayButton: true,
-        format: 'DD-MM-YYYY HH:mm',    
-        showClose: true, 
+        format: 'DD-MM-YYYY HH:mm',
+        showClose: true,
         stepping: 1
-        
+
     });
 });
 
 
 function setspendMinutes() {
-    var timestart = moment( $("#timeStart").datetimepicker('date'));
-    
-    var timeend = moment( $("#timeEnd").datetimepicker('date'));
+    var timestart = moment($("#timeStart").datetimepicker('date'));
+
+    var timeend = moment($("#timeEnd").datetimepicker('date'));
 
     timestart.set({ s: 0, ms: 0 });
     timeend.set({ s: 0, ms: 0 });
-    var tmp = timeend.diff(timestart, 'minutes');    
+    var tmp = timeend.diff(timestart, 'minutes');
     var min = tmp % 60;
     var h = Math.floor(tmp / 60);
 
 
-    document.getElementById("timeMinutes").value = (min<0)?0:min;
-    document.getElementById("timeHours").value = (h < 0) ? 0: h;
+    document.getElementById("timeMinutes").value = (min < 0) ? 0 : min;
+    document.getElementById("timeHours").value = (h < 0) ? 0 : h;
 };
 function setdatetimes() {
 
-    var ho = document.getElementById("timeHours").value 
-    var mine = document.getElementById("timeMinutes").value 
-     var val = mine + (ho * 60);
+    var ho = document.getElementById("timeHours").value
+    var mine = document.getElementById("timeMinutes").value
+    var val = mine + (ho * 60);
     var datestart = moment().format("DD-MM-YYYY HH:mm");
     var dateend = moment().add(mine, 'minutes').add(ho, 'hours').format("DD-MM-YYYY HH:mm");
-    
+
     $('#timeStart').datetimepicker('date', datestart);
     $('#timeEnd').datetimepicker('date', dateend);
-    
-};  
-    
+
+};
+
 function diff_minutes(dt2, dt1) {
 
     var diff = (dt2.getTime() - dt1.getTime()) / 1000;

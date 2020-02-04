@@ -58,7 +58,6 @@ namespace AwesomeDesk.Models
         [Display(Name = "Odpowiedź")]
         public string NewPositionContent { get; set; }
     }
-
     public class AssistantListTicketViewModel
     {
 
@@ -173,16 +172,14 @@ namespace AwesomeDesk.Models
         public List<Company> Companies { get; set; }
         [Display(Name = "Firma")]
         public int CuS_CMPID { get; set; }
-    }
-
-
+    }    
     public class TicketWorkLogViewModel
     {
         [Display(Name = "Data rozpoczęcia")]
-        [DisplayFormat (DataFormatString  = "{0:MM/dd/yyyy HH:mm}" ,ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-YYYY HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime TwL_StartDate { get; set; }
 
-        [DisplayFormat( DataFormatString = "{0:MM/dd/yyyy HH:mm}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-YYYY HH:mm}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data zakończenia")]
         public DateTime TwL_EndDate { get; set; }
 
@@ -195,13 +192,81 @@ namespace AwesomeDesk.Models
         public string TwL_Description { get; set; }
         [Display(Name = "Czy opis ma być widoczny dla klienta?")]
         public bool TwL_PublicDescription { get; set; }
-
-
-
         public int? TwL_TIHID { get; set; }
 
     }
+    public class ListWorkLogViewModel
+    {
+        [Display(Name = "Data rozpoczęcia")]
+
+        public DateTime TwL_StartDateL { get; set; }
 
 
+        [Display(Name = "Data zakończenia")]
+
+        public DateTime TwL_EndDateL { get; set; }
+
+        [Display(Name = "Minuty")]
+        public int TwL_SpendMinutesL { get; set; }
+
+        [Display(Name = "Godziny")]
+        public int TwL_SpendHoursL { get; set; }
+        [Display(Name = "Opis")]
+        public string TwL_DescriptionL { get; set; }
+        [Display(Name = "Czy opis ma być widoczny dla klienta?")]
+        public bool TwL_PublicDescriptionL { get; set; }
+
+        [Display(Name = "Asystent")]
+        public string AsystentL { get; set; }
+
+        public int? TwL_TIHIDL { get; set; }
+
+        public int? TwL_IDL { get; set; }
+    }
+
+
+    public class AssistantListViewModel
+    {
+        [Display(Name = "Imię asystenta")]
+        public string AsS_Name { get; set; }
+        [Display(Name = "Nazwisko asystenta")]
+        public string AsS_Surname { get; set; }
+        [Display(Name = "E-mail asystenta"), Key]
+        public string AsS_Email { get; set; }
+
+        [Display(Name = "Numer telefonu asystenta")]
+        public string AsS_PhoneNumber { get; set; }
+        [Display(Name = "Prawa administratora")]
+        public bool AsS_IsAdmin { get; set; }
+    }
+
+
+        public class AssistantCreateViewModel
+    {
+
+        [StringLength(100, ErrorMessage = " {0} musi mieć minimum {2} znaków długości", MinimumLength = 2)]
+        [Display(Name = "Imię asystenta")]
+        public string AsS_Name { get; set; }
+
+        [StringLength(100, ErrorMessage = " {0} musi mieć minimum {2} znaków długości", MinimumLength = 2)]
+        [Display(Name = "Nazwisko asystenta")]
+        public string AsS_Surname { get; set; }
+
+
+        [Display(Name = "E-mail asystenta"), Key]
+        [Required]
+        [EmailAddress]
+        public string AsS_Email { get; set; }
+        [Display(Name = "Numer telefonu asystenta"), RegularExpression("^[0-9]*$", ErrorMessage = "{0} może zawierać tylko liczby")]
+        public string AsS_PhoneNumber { get; set; }
+
+        [Required]
+        [Display(Name = "Hasło")]
+        [StringLength(100, ErrorMessage = " {0} musi mieć minimum {2} znaków długości", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        public string AsS_Password { get; set; }
+        [Display(Name = "Czy asystent ma miec prawa administratora?")]
+        public bool AsS_IsAdmin { get; set; }
+    }
 
 }

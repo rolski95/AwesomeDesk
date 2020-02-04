@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace AwesomeDesk.Extensions
 {
@@ -77,6 +78,25 @@ namespace AwesomeDesk.Extensions
             clientValidationRule.ValidationParameters.Add("otherproperty", OtherProperty);
 
             return new[] { clientValidationRule };
+        }
+
+
+
+    }
+
+    public class CustomAuthorize : AuthorizeAttribute
+    {
+        protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
+        {
+            if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
+            {
+                filterContext.Result = new HttpUnauthorizedResult();
+            }
+            else
+            {
+                filterContext.Result = new RedirectToRouteResult(new
+                    RouteValueDictionary(new { controller = "AccessDenied" }));
+            }
         }
     }
 }

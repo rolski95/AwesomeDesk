@@ -15,11 +15,11 @@ namespace AwesomeDesk.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Customers
-        [Authorize(Roles = "Customer,Assistant")]
+        [Authorize(Roles = "Customer,Assistant,Administrator")]
         public ActionResult List()
         {
             var userid = User.Identity.GetUserId();
-            if (User.IsInRole("Customer"))
+            if (User.IsInRole("Customer") )
             {
                 var company = db.Customers.Where(x => x.Id == userid).FirstOrDefault().CuS_CMPID;
                 var model = (from TiH in db.TicketHeaders
@@ -94,7 +94,7 @@ namespace AwesomeDesk.Controllers
             }
         }
 
-        [Authorize(Roles = "Customer,Assistant")]
+        [Authorize(Roles = "Customer,Assistant,Administrator")]
         public ActionResult Create()
         {
             if (User.IsInRole("Customer"))
@@ -147,7 +147,7 @@ namespace AwesomeDesk.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Assistant")]
+        [Authorize(Roles = "Assistant,Administrator")]
         [ActionName("CreateAssistant")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(AssistantCreateTicketViewModel model)
@@ -184,7 +184,7 @@ namespace AwesomeDesk.Controllers
             return View("CreateAssistants", model);
         }
 
-        [Authorize(Roles = "Customer,Assistant")]
+        [Authorize(Roles = "Customer,Assistant,Administrator")]
         public ActionResult Details(int? id)
         {
             var userid = User.Identity.GetUserId();
@@ -270,7 +270,7 @@ namespace AwesomeDesk.Controllers
             }
         }
 
-        [Authorize(Roles = "Customer,Assistant")]
+        [Authorize(Roles = "Customer")]
         [ValidateAntiForgeryToken]
         [ActionName("DetailsCustomer")]
         [HttpPost]
@@ -308,7 +308,7 @@ namespace AwesomeDesk.Controllers
             }
         }
 
-        [Authorize(Roles = "Customer,Assistant")]
+        [Authorize(Roles = "Assistant,Administrator")]
         [ActionName("DetailsAssistant")]
         [ValidateAntiForgeryToken]
         [HttpPost]
@@ -347,7 +347,7 @@ namespace AwesomeDesk.Controllers
         }
 
 
-        [Authorize(Roles = "Assistant")]
+        [Authorize(Roles = "Assistant,Administrator")]
         public ActionResult AssignToYourself(int? id)
         {
             var assID = User.Identity.GetUserId();
@@ -378,7 +378,7 @@ namespace AwesomeDesk.Controllers
         }
 
 
-        [Authorize(Roles = "Assistant")]
+        [Authorize(Roles = "Assistant,Administrator")]
         public ActionResult ChangeState(int? id, int? idstate)
         {
             var assID = User.Identity.GetUserId();
@@ -393,19 +393,21 @@ namespace AwesomeDesk.Controllers
             return RedirectToAction("List");
         }
 
-
+        [Authorize(Roles = "Assistant,Administrator")]
         public ActionResult AddWorkTimeLog(int? id)
         {
-            var _twlModel = new TicketWorkLogViewModel {
+            var _twlModel = new TicketWorkLogViewModel
+            {
 
                 TwL_TIHID = id,
                 TwL_StartDate = DateTime.Now,
                 TwL_EndDate = DateTime.Now
-                
+
             };
-          
+
             return PartialView("AddWorkTimeLog", _twlModel);
         }
+        [Authorize(Roles = "Assistant,Administrator")]
         [HttpPost]
         public ActionResult AddWorkTimeLog(TicketWorkLogViewModel model)
         {
@@ -419,24 +421,46 @@ namespace AwesomeDesk.Controllers
                     TwL_StartDate = model.TwL_StartDate,
                     TwL_EndDate = model.TwL_EndDate,
                     TwL_SpendMinutes = (model.TwL_SpendHours * 60) + model.TwL_SpendMinutes,
-                    TwL_Description = model.TwL_Description == null ? "": model.TwL_Description,
+                    TwL_Description = model.TwL_Description == null ? "" : model.TwL_Description,
                     TwL_PublicDescription = model.TwL_PublicDescription
 
 
-                }) ;
+                });
                 db.SaveChanges();
-                TempData["Success"] = "Pomyśłnie dodano wpis w dzienniku pracy";
-                return RedirectToAction("Details",new { id = model.TwL_TIHID });
+                TempData["Success"] = "Pomyślnie dodano wpis w dzienniku pracy";
+                return RedirectToAction("Details", new { id = model.TwL_TIHID });
             }
-            TempData["Error"] ="Przy próbie dodania dziennika pracy wystąpły błędy:<p>"+  string.Join("<p>", ModelState.Values
+            TempData["Error"] = "Przy próbie dodania dziennika pracy wystąpły błędy:<p>" + string.Join("<p>", ModelState.Values
                                         .SelectMany(x => x.Errors)
-                                        .Select(x => x.ErrorMessage +"</p>"));
+                                        .Select(x => x.ErrorMessage + "</p>"));
             return RedirectToAction("Details", new { id = model.TwL_TIHID });
 
 
         }
+        [Authorize(Roles = "Assistant,Administrator")]
+        public ActionResult ListWorkTime(int? id)
+        {
+            var model = (from twl in db.TicketWorkLogs
+
+                         join ass in db.Assistants on twl.TwL_ASSID equals ass.Id
 
 
+                         where twl.TwL_TIHID == id
+                         select new ListWorkLogViewModel
+                         {
+                             TwL_TIHIDL = id,
+                             TwL_StartDateL = twl.TwL_StartDate,
+                             TwL_EndDateL = twl.TwL_EndDate,
+                             TwL_DescriptionL = twl.TwL_Description,
+                             TwL_PublicDescriptionL = twl.TwL_PublicDescription,
+                             TwL_SpendHoursL = (twl.TwL_SpendMinutes - (twl.TwL_SpendMinutes % 60)) / 60,
+                             TwL_SpendMinutesL = twl.TwL_SpendMinutes % 60,
+                             TwL_IDL = twl.TwL_ID,
+                             AsystentL = ass.AsS_Name + " " + ass.AsS_Surname
+
+                         }).ToList();
+            return PartialView("ListWorkTime", model);
+        }
         public ActionResult Changelog()
         {
 
@@ -444,8 +468,8 @@ namespace AwesomeDesk.Controllers
         }
         public ActionResult Functional()
         {
-        
-                return View("Functional");
+
+            return View("Functional");
         }
         public IQueryable<string> GetAssistantsNames(int _TiH_ID)
         {

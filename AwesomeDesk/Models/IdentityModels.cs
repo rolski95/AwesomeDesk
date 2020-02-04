@@ -41,7 +41,7 @@ namespace AwesomeDesk.Models
         public DbSet<Customer> Customers { get; set; }
         public DbSet<TicketHeaderAssistant> TicketHeaderAssistants { get; set; }
         public DbSet<TicketHeaderCustomer> TicketHeaderCustomers { get; set; }
-
+       
         public System.Data.Entity.DbSet<AwesomeDesk.Models.TicketWorkLog> TicketWorkLogs { get; set; }
     }
 
