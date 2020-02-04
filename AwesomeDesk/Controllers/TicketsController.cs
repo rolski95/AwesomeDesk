@@ -459,7 +459,7 @@ namespace AwesomeDesk.Controllers
                              Asystent= ass.AsS_Name + " " + ass.AsS_Surname
 
                          }).ToList();
-            return PartialView("ListWorkTime", model);
+            return PartialView("ListWorkTime", model);    
         }
 
 
