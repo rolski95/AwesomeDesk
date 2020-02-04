@@ -186,7 +186,7 @@ namespace AwesomeDesk.Models
         [Display(Name = "Data zakończenia")]
         public DateTime TwL_EndDate { get; set; }
 
-        [Display(Name = "Minuty"),WorkTime]
+        [Display(Name = "Minuty")]
         public int TwL_SpendMinutes { get; set; }
 
         [Display(Name = "Godziny")]
