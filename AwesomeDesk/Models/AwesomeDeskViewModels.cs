@@ -179,14 +179,12 @@ namespace AwesomeDesk.Models
     public class TicketWorkLogViewModel
     {
         [Display(Name = "Data rozpoczęcia")]
-        [DisplayFormat (DataFormatString  = "{0:MM/dd/yyyy HH:mm}" ,ApplyFormatInEditMode = true)]
         public DateTime TwL_StartDate { get; set; }
+        [Display(Name = "Data zakończenia"), DateTimeNotLessThan("TwL_StartDate", "time")]
 
-        [DisplayFormat( DataFormatString = "{0:MM/dd/yyyy HH:mm}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Data zakończenia")]
+    
         public DateTime TwL_EndDate { get; set; }
-
-        [Display(Name = "Minuty"),WorkTime]
+        [Display(Name = "Minuty")]
         public int TwL_SpendMinutes { get; set; }
 
         [Display(Name = "Godziny")]

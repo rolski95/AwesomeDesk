@@ -34,9 +34,7 @@ namespace AwesomeDesk
                       "~/Content/bootstrap.css",
                       "~/Content/Site.css", 
                       "~/Content/jquery.dataTables.min.css",
-                      "~/Content/tempusdominus-bootstrap-4.min.css",
-                       "~/Content/fontawesome.css"
-                      
+                      "~/Content/tempusdominus-bootstrap-4.min.css"
                       ));
         }
     }
