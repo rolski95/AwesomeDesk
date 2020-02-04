@@ -49,7 +49,7 @@ namespace AwesomeDesk
             UserManager<Operator> UserManager = new UserManager<Operator>(new UserStore<Operator>(context));
 
 
-            // In Startup iam creating first Admin Role and creating a default Admin User    
+            // In Startup iam creating first Admin Role and creating a default Admin     
             if (!roleManager.RoleExists("Adminstrator"))
             {
 
