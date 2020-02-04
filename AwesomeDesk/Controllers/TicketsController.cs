@@ -396,14 +396,8 @@ namespace AwesomeDesk.Controllers
 
         public ActionResult AddWorkTimeLog(int? id)
         {
-            var _twlModel = new TicketWorkLogViewModel {
-
-                TwL_TIHID = id,
-                TwL_StartDate = DateTime.Now,
-                TwL_EndDate = DateTime.Now
-                
-            };
-          
+            var _twlModel = new TicketWorkLogViewModel();
+            _twlModel.TwL_TIHID = id;
             return PartialView("AddWorkTimeLog", _twlModel);
         }
         [HttpPost]
@@ -419,19 +413,16 @@ namespace AwesomeDesk.Controllers
                     TwL_StartDate = model.TwL_StartDate,
                     TwL_EndDate = model.TwL_EndDate.Date,
                     TwL_SpendMinutes = (model.TwL_SpendHours * 60) + model.TwL_SpendMinutes,
-                    TwL_Description = model.TwL_Description == null ? "": model.TwL_Description,
+                    TwL_Description = model.TwL_Description,
                     TwL_PublicDescription = model.TwL_PublicDescription
 
 
-                }) ;
+                });
                 db.SaveChanges();
                 TempData["Success"] = "Pomyśłnie dodano wpis w dzienniku pracy";
-                return RedirectToAction("Details",new { id = model.TwL_TIHID });
+                return RedirectToAction("List");
             }
-            TempData["Error"] ="Przy próbie dodania dziennika pracy wystąpły błędy:<p>"+  string.Join("<p>", ModelState.Values
-                                        .SelectMany(x => x.Errors)
-                                        .Select(x => x.ErrorMessage +"</p>"));
-            return RedirectToAction("Details", new { id = model.TwL_TIHID });
+            return PartialView("AddWorkTimeLog", model);
 
 
         }
