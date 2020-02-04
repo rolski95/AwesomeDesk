@@ -18,7 +18,7 @@ namespace AwesomeDesk.Controllers
         [Authorize(Roles = "Customer,Assistant")]
         public ActionResult List()
         {
-            var userid = User.Identity.GetUserId();
+            var userid = User.Identity.GetUserId(); 
             if (User.IsInRole("Customer"))
             {
                 var company = db.Customers.Where(x => x.Id == userid).FirstOrDefault().CuS_CMPID;
