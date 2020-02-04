@@ -12,7 +12,8 @@ namespace AwesomeDesk
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+            ConfigureAuth(app);        
+            
             RO_Seed();
             CreateRolesandUsers();
           
@@ -48,7 +49,7 @@ namespace AwesomeDesk
             UserManager<Operator> UserManager = new UserManager<Operator>(new UserStore<Operator>(context));
 
 
-            // In Startup iam creating first Admin Role and creating a default Admin User    
+            // In Startup iam creating first Admin Role and creating a default Admin     
             if (!roleManager.RoleExists("Adminstrator"))
             {
 
@@ -63,11 +64,11 @@ namespace AwesomeDesk
 
                 var user = new Operator
                 {
-                    UserName = "admin@o2.pl",
-                    Email = "admin@o2.pl",
+                    UserName = "admin@example.com",
+                    Email = "admin@example.com",
                    
                 };
-                var chkUser = UserManager.Create(user, "!@#QWEasd");
+                var chkUser = UserManager.Create(user, "Qwerty!12345");
                 
                 
                 //Add default User to Role Admin   
@@ -105,6 +106,7 @@ namespace AwesomeDesk
                 AddAssistant("sermiszcz@wp.pl", UserManager);
                 AddAssistant("mr.shadowdkj@gmail.com", UserManager);
                 AddAssistant("rolski95@o2.pl", UserManager);
+                AddAssistant("assistant@example.com", UserManager);
 
             }
 
