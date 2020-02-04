@@ -7,13 +7,13 @@ namespace AwesomeDesk.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class mig2 : IMigrationMetadata
+    public sealed partial class migone : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(mig2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(migone));
         
         string IMigrationMetadata.Id
         {
-            get { return "202001261844211_mig2"; }
+            get { return "202002032302410_migone"; }
         }
         
         string IMigrationMetadata.Source

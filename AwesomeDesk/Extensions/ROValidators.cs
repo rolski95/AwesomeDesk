@@ -21,20 +21,6 @@ namespace AwesomeDesk.Extensions
                 return new ValidationResult("Podana firma już istnieje!");
         }
     }
-    public class WorkTime : ValidationAttribute
-    {
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            var thiscmp = validationContext.ObjectInstance as TicketWorkLogViewModel;
-            if (thiscmp.TwL_SpendHours==0 && thiscmp.TwL_SpendMinutes == 0)
-                return new ValidationResult("Nie można dodać dziennika pracy z 0 czasem pracy");         
-            else
-                return ValidationResult.Success;
-        }
-    }
-
-
-
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public class DateTimeNotLessThan : ValidationAttribute, IClientValidatable
     {
