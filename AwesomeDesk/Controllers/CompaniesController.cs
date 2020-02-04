@@ -10,7 +10,7 @@ using AwesomeDesk.Models;
 
 namespace AwesomeDesk.Controllers
 {
-    public class Companies : Controller
+    public class CompaniesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 

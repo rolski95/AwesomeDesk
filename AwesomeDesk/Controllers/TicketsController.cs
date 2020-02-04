@@ -10,7 +10,7 @@ using Microsoft.AspNet.Identity;
 
 namespace AwesomeDesk.Controllers
 {
-    public class Tickets : Controller
+    public class TicketsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
@@ -18,7 +18,7 @@ namespace AwesomeDesk.Controllers
         [Authorize(Roles = "Customer,Assistant")]
         public ActionResult List()
         {
-            var userid = User.Identity.GetUserId(); 
+            var userid = User.Identity.GetUserId();
             if (User.IsInRole("Customer"))
             {
                 var company = db.Customers.Where(x => x.Id == userid).FirstOrDefault().CuS_CMPID;
@@ -396,8 +396,14 @@ namespace AwesomeDesk.Controllers
 
         public ActionResult AddWorkTimeLog(int? id)
         {
-            var _twlModel = new TicketWorkLogViewModel();
-            _twlModel.TwL_TIHID = id;
+            var _twlModel = new TicketWorkLogViewModel {
+
+                TwL_TIHID = id,
+                TwL_StartDate = DateTime.Now,
+                TwL_EndDate = DateTime.Now
+                
+            };
+          
             return PartialView("AddWorkTimeLog", _twlModel);
         }
         [HttpPost]
@@ -411,50 +417,24 @@ namespace AwesomeDesk.Controllers
                     TwL_ASSID = userid,
                     TwL_TIHID = model.TwL_TIHID,
                     TwL_StartDate = model.TwL_StartDate,
-                    TwL_EndDate = model.TwL_EndDate.Date,
+                    TwL_EndDate = model.TwL_EndDate,
                     TwL_SpendMinutes = (model.TwL_SpendHours * 60) + model.TwL_SpendMinutes,
-                    TwL_Description = model.TwL_Description,
+                    TwL_Description = model.TwL_Description == null ? "": model.TwL_Description,
                     TwL_PublicDescription = model.TwL_PublicDescription
 
 
-                });
+                }) ;
                 db.SaveChanges();
                 TempData["Success"] = "Pomyśłnie dodano wpis w dzienniku pracy";
-                return RedirectToAction("List");
+                return RedirectToAction("Details",new { id = model.TwL_TIHID });
             }
-            return PartialView("AddWorkTimeLog", model);
+            TempData["Error"] ="Przy próbie dodania dziennika pracy wystąpły błędy:<p>"+  string.Join("<p>", ModelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Select(x => x.ErrorMessage +"</p>"));
+            return RedirectToAction("Details", new { id = model.TwL_TIHID });
 
 
         }
-
-
-
-        public ActionResult ListWorkTime(int? id)
-        {
-            var model = (from twl in db.TicketWorkLogs
-
-                         join ass in db.Assistants on twl.TwL_ASSID equals ass.Id
-
-
-                         where twl.TwL_TIHID == id
-                         select new ListWorkLogViewModel
-                         {
-                             TwL_TIHID = id,
-                             TwL_StartDate = twl.TwL_StartDate,
-                             TwL_EndDate = twl.TwL_EndDate,
-                             TwL_Description = twl.TwL_Description,
-                             TwL_PublicDescription = twl.TwL_PublicDescription,
-                             TwL_SpendHours = (twl.TwL_SpendMinutes - (twl.TwL_SpendMinutes % 60)) / 60,
-                             TwL_SpendMinutes= twl.TwL_SpendMinutes % 60,
-                             TwL_ID=twl.TwL_ID,
-                             Asystent= ass.AsS_Name + " " + ass.AsS_Surname
-
-                         }).ToList();
-            return PartialView("ListWorkTime", model);    
-        }
-
-
-
 
 
         public ActionResult Changelog()

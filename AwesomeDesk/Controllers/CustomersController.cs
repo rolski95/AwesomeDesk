@@ -11,7 +11,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace AwesomeDesk.Controllers
 {
-    public class Customers : Controller
+    public class CustomersController : Controller
     {
 
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -71,10 +71,23 @@ namespace AwesomeDesk.Controllers
             model.Companies = db.Companies.ToList();
             return View(model);
         }
-
-        public void Delete()
+        private void AddCustomer(string Email, int CompanyID, UserManager<Operator> UserManager)
         {
-            throw new System.NotImplementedException();
+
+            var user = new Customer
+            {
+                UserName = Email,
+                Email = Email,
+                CuS_CMPID = CompanyID
+
+            };
+            var chkUser = UserManager.Create(user, "Qwerty!12345");
+
+            if (chkUser.Succeeded)
+            {
+                var result1 = UserManager.AddToRole(user.Id, "Customer");
+            }
         }
+
     }
 }
